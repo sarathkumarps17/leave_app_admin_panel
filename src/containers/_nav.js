@@ -54,12 +54,15 @@ export default [
   {
     _tag: "CSidebarNavItem",
     name: "Leave",
-    to: "/conversion-rates",
+    to: "/leave",
+    icon: <CIcon content={freeSet.cilPen} customClasses="c-sidebar-nav-icon" />,
+  },
+  {
+    _tag: "CSidebarNavItem",
+    name: "Profile",
+    to: "/profile",
     icon: (
-      <CIcon
-        content={freeSet.cilBalanceScale}
-        customClasses="c-sidebar-nav-icon"
-      />
+      <CIcon content={freeSet.cilSettings} customClasses="c-sidebar-nav-icon" />
     ),
   },
 ];
