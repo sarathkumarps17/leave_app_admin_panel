@@ -1,0 +1,176 @@
+// Here you can add other styles
+#alert {
+  position: absolute;
+  top: 7.5vh;
+  left: 25vw;
+  z-index: 100000;
+  width: 50vw;
+  text-align: center;
+  margin: 0 auto 0 auto;
+  padding: 0;
+}
+// #login_box {
+//   background-image: linear-gradient(
+//     to right bottom,
+//     rgba(#fc9c5f, 0.95),
+//     rgba(#dd2e19, 0.7)
+//   );
+// }
+// .table-album {
+//   // margin-top: 10vh;
+// }
+.App {
+  position: relative;
+}
+.edit_advertiser {
+  width: 100%;
+
+  // top: 20vh;
+  // left: 15vw;
+}
+.carousel {
+  margin: 0 auto 3vh auto;
+  max-width: 100%;
+  vertical-align: middle;
+  padding: 2px 0;
+}
+.album {
+  text-align: center;
+  padding-bottom: 5px;
+  &_heading {
+    text-decoration: solid;
+    color: black;
+    text-transform: uppercase;
+  }
+  &_description {
+    color: #303c54;
+    text-transform: capitalize;
+  }
+}
+.back_button {
+  position: fixed;
+  top: 65px;
+  z-index: 100000;
+}
+.carousel_controle {
+  height: 30vh;
+  margin: auto 0 auto 0;
+}
+.carousel_caption {
+  width: 20vw;
+  margin: 0 auto 0 auto;
+}
+.carousel_close_btn {
+  width: 10vw;
+  margin-left: 45vh;
+}
+
+.page_heading {
+  text-align: center;
+  text-decoration: underline;
+}
+.editor_container {
+  height: 32vh;
+}
+.editor {
+  margin: 5vw auto;
+  background-color: white;
+  width: 60vw;
+  height: 30vh;
+  border: none;
+  // @media screen and (max-width: 600px) {
+  //   height: 10vh;
+  // }
+}
+.ql-container {
+  background-color: white;
+}
+.btn_container {
+  margin-left: 35vw;
+  @media screen and (max-width: 870px) {
+    margin: 10vh auto auto 35vw;
+  }
+}
+.btn {
+  width: 5rem;
+}
+.big_btn {
+  width: 8rem;
+  color: white;
+}
+.x_btn {
+  width: 10rem;
+}
+.btn_col_one {
+  text-align: right;
+}
+.btn_col_two {
+  text-align: left;
+}
+.cms_submit_btn {
+  width: 5rem;
+  // margin: 2vh 2vw auto 50vw;
+}
+.cms_view_btn {
+  // margin-top: 2vh;
+  width: 5rem;
+  color: white;
+  background-color: #8a93a2;
+  &:hover {
+    background-color: #636f83;
+    color: white;
+  }
+}
+.add_upload_footer {
+  width: 50%;
+}
+.c-sidebar-header {
+  background-color: #303c54 !important;
+}
+.edit_row {
+  width: 50%;
+  margin-left: 40%;
+}
+.edit_col {
+  margin-left: 20%;
+}
+.widget {
+  height: 14rem;
+}
+.loader {
+  position: absolute;
+  top: 45vh;
+  left: 45vw;
+}
+.error {
+  color: red;
+  margin-left: 5px;
+  padding: 2px;
+  margin-bottom: 16px;
+}
+.hyperlink {
+  color: #0c3992;
+  cursor: pointer;
+}
+// .ad_row {
+//   height: 20px;
+// }
+.ad_widget {
+  height: 40px;
+}
+.ad_card_container {
+  padding-top: 75px;
+}
+.ad_stat_label {
+  padding-left: 20px;
+}
+.msg {
+  padding-top: 100px;
+  text-align: center;
+}
+.ad_view_port {
+  padding: 5px;
+}
+.add_view_btn {
+  text-align: center;
+}
