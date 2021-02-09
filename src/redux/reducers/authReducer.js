@@ -23,14 +23,16 @@ export default function (state = initialState, action) {
         token: payload.token,
         loading: false,
         isAuthenticated: true,
+        userType: payload.userType,
       };
     case LOGIN_FAILURE:
     case TOKEN_EXPRIED:
     case LOGOUT:
       localStorage.removeItem("token");
-      localStorage.removeItem('persist:root')
+      localStorage.removeItem("persist:root");
       return {
         ...state,
+        userType: "",
         token: null,
         loading: false,
         isAuthenticated: false,
@@ -38,8 +40,8 @@ export default function (state = initialState, action) {
     case TOKEN_VALID:
       return {
         ...state,
-        isAuthenticated: true
-      }
+        isAuthenticated: true,
+      };
 
     default:
       return state;

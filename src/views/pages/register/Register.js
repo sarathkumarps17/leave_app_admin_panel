@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import {register} from "../../../redux/actions/auth";
+import { register } from "../../../redux/actions/auth";
 import {
   CButton,
   CCard,
@@ -14,11 +14,11 @@ import {
   CInputGroup,
   CInputGroupPrepend,
   CInputGroupText,
-  CRow
-} from '@coreui/react'
-import CIcon from '@coreui/icons-react'
+  CRow,
+} from "@coreui/react";
+import CIcon from "@coreui/icons-react";
 
-const Register = ({register}) => {
+const Register = ({ register }) => {
   const initialState = {
     prevEmail: "",
     newEmail: "",
@@ -38,8 +38,8 @@ const Register = ({register}) => {
   };
   const handleSubmit = async (event) => {
     event.preventDefault();
-    let result =await register(input);
-    if(result){
+    let result = await register(input);
+    if (result) {
       setInput(initialState);
     }
   };
@@ -59,13 +59,15 @@ const Register = ({register}) => {
                         <CIcon name="cil-user" />
                       </CInputGroupText>
                     </CInputGroupPrepend>
-                    <CInput name="prevEmail"
+                    <CInput
+                      name="prevEmail"
                       type="email"
                       placeholder="Email"
                       autoComplete="email"
                       onChange={handleChange}
                       value={input.prevEmail}
-                      required />
+                      required
+                    />
                   </CInputGroup>
                   <CInputGroup className="mb-3">
                     <CInputGroupPrepend>
@@ -73,13 +75,15 @@ const Register = ({register}) => {
                         <CIcon name="cil-user" />
                       </CInputGroupText>
                     </CInputGroupPrepend>
-                    <CInput name="newEmail"
+                    <CInput
+                      name="newEmail"
                       type="email"
                       placeholder="New Email"
                       autoComplete="email"
                       onChange={handleChange}
                       value={input.newEmail}
-                      required />
+                      required
+                    />
                   </CInputGroup>
                   <CInputGroup className="mb-3">
                     <CInputGroupPrepend>
@@ -87,12 +91,15 @@ const Register = ({register}) => {
                         <CIcon name="cil-lock-locked" />
                       </CInputGroupText>
                     </CInputGroupPrepend>
-                    <CInput name="prevPassword"
+                    <CInput
+                      name="prevPassword"
                       type="password"
                       onChange={handleChange}
                       value={input.prevPassword}
-                      required placeholder="Password"
-                      autoComplete="prevoius-password" />
+                      required
+                      placeholder="Password"
+                      autoComplete="prevoius-password"
+                    />
                   </CInputGroup>
                   <CInputGroup className="mb-4">
                     <CInputGroupPrepend>
@@ -100,35 +107,30 @@ const Register = ({register}) => {
                         <CIcon name="cil-lock-locked" />
                       </CInputGroupText>
                     </CInputGroupPrepend>
-                    <CInput name="newPassword"
+                    <CInput
+                      name="newPassword"
                       type="password"
                       onChange={handleChange}
                       value={input.newPassword}
-                      required placeholder="New Password"
+                      required
+                      placeholder="New Password"
                     />
                   </CInputGroup>
-                  <CButton type="submit" color="success" block>Submit</CButton>
+                  <CButton type="submit" color="success" block>
+                    Submit
+                  </CButton>
                 </CForm>
               </CCardBody>
-              <CCardFooter className="p-4">
-                {/* <CRow>
-                  <CCol xs="12" sm="6">
-                    <CButton className="btn-facebook mb-1" block><span>facebook</span></CButton>
-                  </CCol>
-                  <CCol xs="12" sm="6">
-                    <CButton className="btn-twitter mb-1" block><span>twitter</span></CButton>
-                  </CCol>
-                </CRow> */}
-              </CCardFooter>
+              <CCardFooter className="p-4"></CCardFooter>
             </CCard>
           </CCol>
         </CRow>
       </CContainer>
     </div>
-  )
-}
+  );
+};
 Register.propTypes = {
   register: PropTypes.func.isRequired,
 };
 
-export default connect(null,{register})(Register)
+export default connect(null, { register })(Register);

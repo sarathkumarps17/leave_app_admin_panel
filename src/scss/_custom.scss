@@ -143,10 +143,10 @@
   left: 45vw;
 }
 .error {
-  color: red;
-  margin-left: 5px;
-  padding: 2px;
-  margin-bottom: 16px;
+  display: block;
+  color: rgb(245, 117, 12);
+  padding-top: 6px;
+  padding-left: 6px;
 }
 .hyperlink {
   color: #0c3992;
@@ -179,4 +179,20 @@
 }
 .c-footer {
   text-align: center;
+}
+.form-control-warning {
+  border-bottom: solid 1px rgb(245, 117, 12);
+}
+.form-control-success {
+  border-color: green;
+}
+.heading-center {
+  font-size: large;
+  text-align: center;
+  padding-bottom: 5px;
+  color: brown;
+}
+.space {
+  padding-top: 10px;
+  margin: 10px;
 }
