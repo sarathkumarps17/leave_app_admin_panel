@@ -7,7 +7,7 @@ import { connect } from "react-redux";
 import DataWidget from "../widgets/DataWidget";
 import StatusWidget from "../widgets/StatusWidget";
 import { CCol, CRow } from "@coreui/react";
-import UserStatChart from "./UserStatChart";
+// import UserStatChart from "./UserStatChart";
 
 const Dashboard = ({ data, dashboardData, checkToken, isAuthenticated }) => {
   useEffect(() => {
@@ -53,14 +53,7 @@ const Dashboard = ({ data, dashboardData, checkToken, isAuthenticated }) => {
           </CCol>
         </CRow>
       )}
-      {
-        <CRow>
-          <CCol>
-            <h3>Customer Statistics</h3>
-            <UserStatChart style={{ height: "200px", marginTop: "40px" }} />
-          </CCol>
-        </CRow>
-      }
+      {}
     </Fragment>
   );
 };

@@ -56,6 +56,7 @@ const AddAc = ({ addAc }) => {
     email: "",
     password: "",
     station: "",
+    specialBrach: false,
     accessLevel: 2,
     availableLeave: {
       cl: 24,

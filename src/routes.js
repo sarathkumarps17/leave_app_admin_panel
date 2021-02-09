@@ -1,4 +1,5 @@
 import React from "react";
+import ListLeaveApplications from "./views/leave/ListLeaveApplications";
 import AddAc from "./views/strength/ACs/AddAc";
 import ListAcs from "./views/strength/ACs/ListAcs";
 import AddSho from "./views/strength/SHOs/AddSho";
@@ -17,6 +18,12 @@ const routes = [
   { path: "/sho", exact: true, name: "SHO List", component: ListShos },
   { path: "/add_si", exact: true, name: "Add SI", component: AddSi },
   { path: "/si", exact: true, name: "SI List", component: ListSis },
+  {
+    path: "/leave",
+    exact: true,
+    name: "Leave Applications",
+    component: ListLeaveApplications,
+  },
 ];
 
 export default routes;

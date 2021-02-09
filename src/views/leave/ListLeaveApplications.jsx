@@ -1,42 +1,23 @@
 import React, { useState, useEffect, Fragment } from "react";
-// import { useHistory } from "react-router-dom";
 import Loader from "react-loader-spinner";
 import { CCol, CDataTable, CRow, CButton } from "@coreui/react";
-// import getFulldate from "../../utils/date";
-// import CIcon from "@coreui/icons-react";
-// import { freeSet } from "@coreui/icons";
-// import { connect } from "react-redux";
-// import PropTypes from "prop-types";
-// const getBadge = (isActive) => {
-//   switch (isActive) {
-//     case true:
-//       return "success";
-//     // case 'Inactive': return 'secondary'
-//     // case 'Pending': return 'warning'
-//     case false:
-//       return "danger";
-//     default:
-//       return "primary";
-//   }
-// };
-
 const fields = [
-  { key: "name", _style: { width: "20%" } },
-  { key: "penNumber", label: "Pen Number", _style: { width: "20%" } },
+  { key: "reqNumber", label: "Req Number", _style: { width: "5%" } },
+  { key: "user", label: "Applicant", _style: { width: "20%" } },
   {
     key: "station",
     _style: { width: "20%" },
   },
   {
-    key: "dutyStatus",
-    label: "Duty Status",
+    key: "applicationDate",
+    label: "Date of Application",
     _style: { width: "20%" },
     sorter: false,
     filter: false,
   },
   {
-    key: "lastLeave",
-    label: "Last Leave",
+    key: "LeaveType",
+    label: "Leave Type",
     _style: { width: "20%" },
     sorter: false,
     filter: false,
@@ -49,16 +30,29 @@ const fields = [
     filter: false,
   },
 ];
-const ListAlbum = ({ data, userType }) => {
-  // const [toggling, setToggling] = useState("");
+
+const ListLeaveApplications = () => {
   const initialState = {
-    users: [...data.users],
-    loading: data.loading,
+    leaves: [],
+    loading: false,
   };
   const [state, setState] = useState(initialState);
+
+  useEffect(() => {
+    const fetchLeave = async () => {
+      let res;
+      try {
+        if (res.data) {
+          setState({ leave: res.data, loading: false });
+        }
+      } catch (error) {}
+    };
+    fetchLeave();
+  }, []);
+
   return (
     <div>
-      <h1>{userType}</h1>
+      <h1>Leave Applications</h1>
       {state.loading ? (
         <Loader
           className="loader"
@@ -73,7 +67,7 @@ const ListAlbum = ({ data, userType }) => {
           <CRow>
             <CCol xl={12}>
               <CDataTable
-                items={state.users}
+                items={state.leaves}
                 fields={fields}
                 hover
                 sorter
@@ -101,4 +95,4 @@ const ListAlbum = ({ data, userType }) => {
   );
 };
 
-export default ListAlbum;
+export default ListLeaveApplications;
