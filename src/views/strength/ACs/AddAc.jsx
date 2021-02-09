@@ -55,7 +55,7 @@ const AddAc = ({ addAc }) => {
     userType: "AC",
     email: "",
     password: "",
-    station: "",
+    subdivision: "",
     specialBrach: false,
     accessLevel: 2,
     availableLeave: {
@@ -207,9 +207,9 @@ const AddAc = ({ addAc }) => {
                     </CInputGroupPrepend>
                     <CSelect
                       custom
-                      name="station"
+                      name="subdivision"
                       id="SelectLm"
-                      {...formik.getFieldProps("station")}
+                      {...formik.getFieldProps("subdivision")}
                     >
                       {subdivisions.map((option) => (
                         <option key={option.value} value={option.value}>

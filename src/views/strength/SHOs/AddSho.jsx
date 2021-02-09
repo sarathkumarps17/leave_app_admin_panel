@@ -87,7 +87,8 @@ const AddSho = ({ addSho }) => {
     userType: "SHO",
     email: "",
     password: "",
-    subdiviion: "",
+    subdivision: "",
+    specialBranch: false,
     station: "",
     accessLevel: 1,
     availableLeave: {

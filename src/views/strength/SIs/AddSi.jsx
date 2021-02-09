@@ -89,8 +89,9 @@ const AddSi = ({ addSi }) => {
     email: "",
     password: "",
     subdivision: "",
+    specialBranch: false,
     station: "",
-    accessLevel: 0,
+    accessLevel: 1,
     availableLeave: {
       cl: 24,
       cOff: 0,
