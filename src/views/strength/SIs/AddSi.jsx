@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { useFormik } from "formik";
 import action from "../../../redux/actions/api";
-// import { addAc } from "../../../redux/actions/auth";
+import { addUser } from "../../../redux/actions/user";
 import {
   CButton,
   CCard,
@@ -22,52 +22,6 @@ import {
 import CIcon from "@coreui/icons-react";
 import Loader from "react-loader-spinner";
 
-// const subdivisions = [
-//   {
-//     name: "Thrikkakara",
-//     value: "trikkakara",
-//   },
-//   {
-//     name: "Central",
-//     value: "central",
-//   },
-//   {
-//     name: "Mattancheri",
-//     value: "mattancheri",
-//   },
-// ];
-// const stations = [
-//   {
-//     name: "sattion 1",
-//     subdivision: "mattancheri",
-//     value: "station1",
-//   },
-//   {
-//     name: "sattion 2",
-//     subdivision: "central",
-//     value: "station2",
-//   },
-//   {
-//     name: "sattion 3",
-//     subdivision: "central",
-//     value: "station3",
-//   },
-//   {
-//     name: "sattion 4",
-//     subdivision: "mattancheri",
-//     value: "station4",
-//   },
-//   {
-//     name: "sattion 5",
-//     subdivision: "trikkakarai",
-//     value: "station5",
-//   },
-//   {
-//     name: "sattion 6",
-//     subdivision: "trikkakara",
-//     value: "station6",
-//   },
-// ];
 const dutyStatus = [
   {
     name: "Active",
@@ -82,11 +36,12 @@ const dutyStatus = [
     value: "transfered",
   },
 ];
-const AddSi = ({ addSi }) => {
+const AddSi = ({ addUser }) => {
   const [state, setstate] = useState({
     stations: [],
     subdivisions: [],
   });
+  const [submitting, setSubmitting] = useState(false);
   useEffect(() => {
     const getPagedetails = async () => {
       try {
@@ -96,15 +51,15 @@ const AddSi = ({ addSi }) => {
           res.data.stations.forEach((item) => {
             stations.push({
               name: item.name,
-              stationId: item.stationId,
-              subdivision: item.subdivision.name,
+              _id: item._id,
+              subdivision_id: item.subdivision._id,
             });
           });
           setstate({
             stations: stations,
             subdivisions: [...res.data.subdivisions],
           });
-          console.log(state);
+          // console.log(state);
         }
       } catch (error) {
         console.log(error);
@@ -119,7 +74,7 @@ const AddSi = ({ addSi }) => {
     email: "",
     password: "",
     subdivision: "",
-    specialBranch: false,
+    specialBranch: "",
     station: "",
     accessLevel: 1,
     availableLeave: {
@@ -133,8 +88,7 @@ const AddSi = ({ addSi }) => {
     /^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i
   );
   const pass = new RegExp(/^(?=.*?[#?!@$%^&*-]).{6,}$/);
-  // const [input, setInput] = useState(initialState);
-  const [submitting, setSubmitting] = useState(false);
+
   const validate = (values) => {
     let errors = {};
     if (!values.email) {
@@ -159,8 +113,8 @@ const AddSi = ({ addSi }) => {
 
   const onSubmit = async (values) => {
     setSubmitting(true);
-    console.log(values);
-    setTimeout(() => setSubmitting(false), 5000);
+    await addUser(values);
+    setSubmitting(false);
   };
   const formik = useFormik({
     initialValues: initialState,
@@ -277,7 +231,7 @@ const AddSi = ({ addSi }) => {
                     >
                       {state.subdivisions.map((option) => (
                         <option key={option._id} value={option._id}>
-                          {option.name.toUpperCase()}
+                          {option.name}
                         </option>
                       ))}
                     </CSelect>
@@ -293,17 +247,15 @@ const AddSi = ({ addSi }) => {
                       {...formik.getFieldProps("station")}
                     >
                       {state.stations.map((option) => {
-                        // console.log(option.name);
                         if (
-                          option.subdivision.toUpperCase() ===
-                          formik.values.subdivision
+                          option.subdivision_id === formik.values.subdivision
                         ) {
                           return (
                             <option key={option._id} value={option._id}>
                               {option.name}
                             </option>
                           );
-                        } else return <div>please select subdivision</div>;
+                        } else return null;
                       })}
                     </CSelect>
                   </CInputGroup>
@@ -389,4 +341,4 @@ AddSi.propTypes = {
   AddSi: PropTypes.func.isRequired,
 };
 
-export default connect(null)(AddSi);
+export default connect(null, { addUser })(AddSi);

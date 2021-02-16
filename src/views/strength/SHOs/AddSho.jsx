@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { useFormik } from "formik";
+import action from "../../../redux/actions/api";
 // import { addAc } from "../../../redux/actions/auth";
 import {
   CButton,
@@ -20,52 +21,7 @@ import {
 } from "@coreui/react";
 import CIcon from "@coreui/icons-react";
 import Loader from "react-loader-spinner";
-const subdivisions = [
-  {
-    name: "Thrikkakara",
-    value: "trikkakara",
-  },
-  {
-    name: "Central",
-    value: "central",
-  },
-  {
-    name: "Mattancheri",
-    value: "mattancheri",
-  },
-];
-const stations = [
-  {
-    name: "sattion 1",
-    subdivision: "mattancheri",
-    value: "station1",
-  },
-  {
-    name: "sattion 2",
-    subdivision: "central",
-    value: "station2",
-  },
-  {
-    name: "sattion 3",
-    subdivision: "central",
-    value: "station3",
-  },
-  {
-    name: "sattion 4",
-    subdivision: "mattancheri",
-    value: "station4",
-  },
-  {
-    name: "sattion 5",
-    subdivision: "trikkakarai",
-    value: "station5",
-  },
-  {
-    name: "sattion 6",
-    subdivision: "trikkakara",
-    value: "station6",
-  },
-];
+
 const dutyStatus = [
   {
     name: "Active",
@@ -80,7 +36,38 @@ const dutyStatus = [
     value: "transfered",
   },
 ];
+
 const AddSho = ({ addSho }) => {
+  const [state, setstate] = useState({
+    stations: [],
+    subdivisions: [],
+  });
+
+  useEffect(() => {
+    const getPagedetails = async () => {
+      try {
+        let res = await action.get(`/admin/pageDetails/si`);
+        let stations = [];
+        if (res) {
+          res.data.stations.forEach((item) => {
+            stations.push({
+              name: item.name,
+              stationId: item.stationId,
+              subdivision: item.subdivision.name,
+            });
+          });
+          setstate({
+            stations: stations,
+            subdivisions: [...res.data.subdivisions],
+          });
+          console.log(state);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getPagedetails();
+  }, []);
   const initialState = {
     name: "",
     penNumber: "",
@@ -242,11 +229,11 @@ const AddSho = ({ addSho }) => {
                       custom
                       name="subdivision"
                       id="SelectLm"
-                      {...formik.getFieldProps("subdiviion")}
+                      {...formik.getFieldProps("subdivision")}
                     >
-                      {subdivisions.map((option) => (
-                        <option key={option.value} value={option.value}>
-                          {option.name}
+                      {state.subdivisions.map((option) => (
+                        <option key={option._id} value={option._id}>
+                          {option.name.toUpperCase()}
                         </option>
                       ))}
                     </CSelect>
@@ -261,11 +248,14 @@ const AddSho = ({ addSho }) => {
                       id="SelectLm"
                       {...formik.getFieldProps("station")}
                     >
-                      {stations.map((option) => {
-                        // console.log(formik.values.subdivision);
-                        if (option.subdivision === formik.values.subdivision) {
+                      {state.stations.map((option) => {
+                        // console.log(option.name);
+                        if (
+                          option.subdivision.toUpperCase() ===
+                          formik.values.subdivision
+                        ) {
                           return (
-                            <option key={option.value} value={option.value}>
+                            <option key={option._id} value={option._id}>
                               {option.name}
                             </option>
                           );

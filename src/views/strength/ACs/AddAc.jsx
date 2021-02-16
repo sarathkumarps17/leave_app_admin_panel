@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { useFormik } from "formik";
+import action from "../../../redux/actions/api";
 // import { addAc } from "../../../redux/actions/auth";
 import {
   CButton,
@@ -20,20 +21,7 @@ import {
 } from "@coreui/react";
 import CIcon from "@coreui/icons-react";
 import Loader from "react-loader-spinner";
-const subdivisions = [
-  {
-    name: "Thrikkakara",
-    value: "trikkakara",
-  },
-  {
-    name: "Central",
-    value: "central",
-  },
-  {
-    name: "Mattancheri",
-    value: "mattancheri",
-  },
-];
+
 const dutyStatus = [
   {
     name: "Active",
@@ -49,6 +37,22 @@ const dutyStatus = [
   },
 ];
 const AddAc = ({ addAc }) => {
+  const [subdivisions, setSubdivisions] = useState([]);
+
+  useEffect(() => {
+    const getPagedetails = async () => {
+      try {
+        let res = await action.get(`/admin/pageDetails/AC`);
+        if (res) {
+          setSubdivisions([...res.data]);
+          console.log(res.data);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getPagedetails();
+  }, []);
   const initialState = {
     name: "",
     penNumber: "",
@@ -213,7 +217,7 @@ const AddAc = ({ addAc }) => {
                     >
                       {subdivisions.map((option) => (
                         <option key={option.value} value={option.value}>
-                          {option.name}
+                          {option.name.toUpperCase()}
                         </option>
                       ))}
                     </CSelect>
@@ -295,9 +299,6 @@ const AddAc = ({ addAc }) => {
       </CContainer>
     </div>
   );
-};
-AddAc.propTypes = {
-  addAc: PropTypes.func.isRequired,
 };
 
 export default connect(null)(AddAc);
