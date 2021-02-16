@@ -227,8 +227,12 @@ const AddSi = ({ addUser }) => {
                       custom
                       name="subdivision"
                       id="SelectLm"
+                      required
                       {...formik.getFieldProps("subdivision")}
                     >
+                      <option value="" selected disabled hidden>
+                        Select Subdivision
+                      </option>
                       {state.subdivisions.map((option) => (
                         <option key={option._id} value={option._id}>
                           {option.name}
@@ -244,8 +248,12 @@ const AddSi = ({ addUser }) => {
                       custom
                       name="station"
                       id="SelectLm"
+                      required
                       {...formik.getFieldProps("station")}
                     >
+                      <option value="" selected disabled hidden>
+                        Select Station
+                      </option>
                       {state.stations.map((option) => {
                         if (
                           option.subdivision_id === formik.values.subdivision

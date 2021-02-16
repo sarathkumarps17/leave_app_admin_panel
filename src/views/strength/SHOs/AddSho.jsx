@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { useFormik } from "formik";
 import action from "../../../redux/actions/api";
-// import { addAc } from "../../../redux/actions/auth";
+import { addUser } from "../../../redux/actions/user";
 import {
   CButton,
   CCard,
@@ -37,30 +37,31 @@ const dutyStatus = [
   },
 ];
 
-const AddSho = ({ addSho }) => {
+const AddSho = ({ addUser }) => {
   const [state, setstate] = useState({
     stations: [],
     subdivisions: [],
   });
 
+  const [submitting, setSubmitting] = useState(false);
   useEffect(() => {
     const getPagedetails = async () => {
       try {
-        let res = await action.get(`/admin/pageDetails/si`);
+        let res = await action.get(`/admin/pageDetails/SHO`);
         let stations = [];
         if (res) {
           res.data.stations.forEach((item) => {
             stations.push({
               name: item.name,
-              stationId: item.stationId,
-              subdivision: item.subdivision.name,
+              _id: item._id,
+              subdivision_id: item.subdivision._id,
             });
           });
           setstate({
             stations: stations,
             subdivisions: [...res.data.subdivisions],
           });
-          console.log(state);
+          // console.log(state);
         }
       } catch (error) {
         console.log(error);
@@ -90,7 +91,6 @@ const AddSho = ({ addSho }) => {
   );
   const pass = new RegExp(/^(?=.*?[#?!@$%^&*-]).{6,}$/);
   // const [input, setInput] = useState(initialState);
-  const [submitting, setSubmitting] = useState(false);
   const validate = (values) => {
     let errors = {};
     if (!values.email) {
@@ -115,8 +115,8 @@ const AddSho = ({ addSho }) => {
 
   const onSubmit = async (values) => {
     setSubmitting(true);
-    console.log(values);
-    setTimeout(() => setSubmitting(false), 5000);
+    await addUser(values);
+    setSubmitting(false);
   };
   const formik = useFormik({
     initialValues: initialState,
@@ -229,11 +229,15 @@ const AddSho = ({ addSho }) => {
                       custom
                       name="subdivision"
                       id="SelectLm"
+                      required
                       {...formik.getFieldProps("subdivision")}
                     >
+                      <option value="" selected disabled hidden>
+                        Select Subdivision
+                      </option>
                       {state.subdivisions.map((option) => (
                         <option key={option._id} value={option._id}>
-                          {option.name.toUpperCase()}
+                          {option.name}
                         </option>
                       ))}
                     </CSelect>
@@ -249,17 +253,15 @@ const AddSho = ({ addSho }) => {
                       {...formik.getFieldProps("station")}
                     >
                       {state.stations.map((option) => {
-                        // console.log(option.name);
                         if (
-                          option.subdivision.toUpperCase() ===
-                          formik.values.subdivision
+                          option.subdivision_id === formik.values.subdivision
                         ) {
                           return (
                             <option key={option._id} value={option._id}>
                               {option.name}
                             </option>
                           );
-                        } else return <div>please select subdivision</div>;
+                        } else return null;
                       })}
                     </CSelect>
                   </CInputGroup>
@@ -271,8 +273,12 @@ const AddSho = ({ addSho }) => {
                       custom
                       name="dutyStatu"
                       id="SelectLm"
+                      required
                       {...formik.getFieldProps("dutyStatus")}
                     >
+                      <option value="" selected disabled hidden>
+                        Select Station
+                      </option>
                       {dutyStatus.map((option) => (
                         <option key={option.value} value={option.value}>
                           {option.name}
@@ -345,4 +351,4 @@ AddSho.propTypes = {
   AddSho: PropTypes.func.isRequired,
 };
 
-export default connect(null)(AddSho);
+export default connect(null, { addUser })(AddSho);

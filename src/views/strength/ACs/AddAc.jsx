@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { useFormik } from "formik";
 import action from "../../../redux/actions/api";
-// import { addAc } from "../../../redux/actions/auth";
+import { addUser } from "../../../redux/actions/user";
 import {
   CButton,
   CCard,
@@ -36,7 +36,7 @@ const dutyStatus = [
     value: "transfered",
   },
 ];
-const AddAc = ({ addAc }) => {
+const AddAc = ({ addUser }) => {
   const [subdivisions, setSubdivisions] = useState([]);
 
   useEffect(() => {
@@ -45,7 +45,7 @@ const AddAc = ({ addAc }) => {
         let res = await action.get(`/admin/pageDetails/AC`);
         if (res) {
           setSubdivisions([...res.data]);
-          console.log(res.data);
+          // console.log(res.data);
         }
       } catch (error) {
         console.log(error);
@@ -60,7 +60,7 @@ const AddAc = ({ addAc }) => {
     email: "",
     password: "",
     subdivision: "",
-    specialBrach: false,
+    specialBrach: "",
     accessLevel: 2,
     availableLeave: {
       cl: 24,
@@ -99,8 +99,8 @@ const AddAc = ({ addAc }) => {
 
   const onSubmit = async (values) => {
     setSubmitting(true);
-    console.log(values);
-    setTimeout(() => setSubmitting(false), 5000);
+    await addUser(values);
+    setSubmitting(false);
   };
   const formik = useFormik({
     initialValues: initialState,
@@ -213,11 +213,15 @@ const AddAc = ({ addAc }) => {
                       custom
                       name="subdivision"
                       id="SelectLm"
+                      required
                       {...formik.getFieldProps("subdivision")}
                     >
+                      <option value="" selected disabled hidden>
+                        Select Subdivision
+                      </option>
                       {subdivisions.map((option) => (
-                        <option key={option.value} value={option.value}>
-                          {option.name.toUpperCase()}
+                        <option key={option._id} value={option._id}>
+                          {option.name}
                         </option>
                       ))}
                     </CSelect>
@@ -300,5 +304,4 @@ const AddAc = ({ addAc }) => {
     </div>
   );
 };
-
-export default connect(null)(AddAc);
+export default connect(null, { addUser })(AddAc);
