@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { useFormik } from "formik";
+import { useHistory } from "react-router-dom"
 import action from "../../../redux/actions/api";
 import { addUser } from "../../../redux/actions/user";
 import {
@@ -41,6 +42,8 @@ const AddSi = ({ addUser }) => {
     stations: [],
     subdivisions: [],
   });
+
+  let history = useHistory()
   const [submitting, setSubmitting] = useState(false);
   useEffect(() => {
     const getPagedetails = async () => {
@@ -115,6 +118,7 @@ const AddSi = ({ addUser }) => {
     setSubmitting(true);
     await addUser(values);
     setSubmitting(false);
+    history.push("/si")
   };
   const formik = useFormik({
     initialValues: initialState,
@@ -327,15 +331,15 @@ const AddSi = ({ addUser }) => {
                       timeout={10000} //10 secs
                     />
                   ) : (
-                    <CButton
-                      className="x_btn"
-                      type="submit"
-                      color="success"
-                      block
-                    >
-                      Add SI
-                    </CButton>
-                  )}
+                      <CButton
+                        className="x_btn"
+                        type="submit"
+                        color="success"
+                        block
+                      >
+                        Add SI
+                      </CButton>
+                    )}
                 </CForm>
               </CCardBody>
             </CCard>

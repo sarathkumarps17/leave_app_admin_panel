@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
+import { useHistory } from "react-router-dom"
 import { useFormik } from "formik";
 import action from "../../../redux/actions/api";
 import { addUser } from "../../../redux/actions/user";
@@ -42,7 +43,7 @@ const AddSho = ({ addUser }) => {
     stations: [],
     subdivisions: [],
   });
-
+  let history = useHistory()
   const [submitting, setSubmitting] = useState(false);
   useEffect(() => {
     const getPagedetails = async () => {
@@ -117,6 +118,7 @@ const AddSho = ({ addUser }) => {
     setSubmitting(true);
     await addUser(values);
     setSubmitting(false);
+    history.push("/sho")
   };
   const formik = useFormik({
     initialValues: initialState,
@@ -329,15 +331,15 @@ const AddSho = ({ addUser }) => {
                       timeout={10000} //10 secs
                     />
                   ) : (
-                    <CButton
-                      className="x_btn"
-                      type="submit"
-                      color="success"
-                      block
-                    >
-                      Add SHO
-                    </CButton>
-                  )}
+                      <CButton
+                        className="x_btn"
+                        type="submit"
+                        color="success"
+                        block
+                      >
+                        Add SHO
+                      </CButton>
+                    )}
                 </CForm>
               </CCardBody>
             </CCard>

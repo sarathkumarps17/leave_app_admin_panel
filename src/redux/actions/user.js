@@ -1,6 +1,9 @@
 import setAuthToken from "../../utils/setAuthToken";
 import { setAlert } from "./alert";
+import {
+  SHO_LOADED, AC_LOADED, SI_LOADED, USERS_LOADING_FAILED
 
+} from "../types";
 import action from "./api";
 
 export const addUser = (userData) => async (dispatch) => {
@@ -29,3 +32,47 @@ export const addUser = (userData) => async (dispatch) => {
     }
   }
 };
+
+
+export const fetchUsers = (userType) => async (dispatch) => {
+  if (localStorage.token) {
+    try {
+      setAuthToken(localStorage.token);
+      let res = await action.get(`/admin/getUsers/${userType}`);
+      if (res.data) {
+        console.log(res.data);
+        let type
+        switch (userType) {
+          case "AC":
+            type = AC_LOADED
+            break;
+          case "SHO":
+            type = SHO_LOADED
+            break;
+          case "SI":
+            type = SI_LOADED
+            break;
+          default:
+            type = USERS_LOADING_FAILED
+            break;
+        }
+        dispatch({
+          type: type,
+          payload: res.data,
+        });
+        dispatch(setAlert("User loaded", "success"));
+      } else {
+        dispatch({
+          type: USERS_LOADING_FAILED,
+        });
+        dispatch(setAlert("Failed Loading Users", "warning"));
+      }
+    } catch (err) {
+      dispatch({
+        type: USERS_LOADING_FAILED,
+      });
+      dispatch(setAlert("Server Error", "danger"));
+      // console.log(err.response.data.err);
+    }
+  }
+}

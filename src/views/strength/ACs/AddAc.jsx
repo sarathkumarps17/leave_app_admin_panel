@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import PropTypes from "prop-types";
+import { useHistory } from "react-router-dom"
 import { useFormik } from "formik";
 import action from "../../../redux/actions/api";
 import { addUser } from "../../../redux/actions/user";
@@ -38,7 +38,7 @@ const dutyStatus = [
 ];
 const AddAc = ({ addUser }) => {
   const [subdivisions, setSubdivisions] = useState([]);
-
+  let history = useHistory()
   useEffect(() => {
     const getPagedetails = async () => {
       try {
@@ -101,6 +101,7 @@ const AddAc = ({ addUser }) => {
     setSubmitting(true);
     await addUser(values);
     setSubmitting(false);
+    history.push("/acp")
   };
   const formik = useFormik({
     initialValues: initialState,
@@ -286,15 +287,15 @@ const AddAc = ({ addUser }) => {
                       timeout={10000} //10 secs
                     />
                   ) : (
-                    <CButton
-                      className="x_btn"
-                      type="submit"
-                      color="success"
-                      block
-                    >
-                      Add ACP
-                    </CButton>
-                  )}
+                      <CButton
+                        className="x_btn"
+                        type="submit"
+                        color="success"
+                        block
+                      >
+                        Add ACP
+                      </CButton>
+                    )}
                 </CForm>
               </CCardBody>
             </CCard>

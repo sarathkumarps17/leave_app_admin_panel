@@ -6,7 +6,7 @@ const ListSis = () => {
   const history = useHistory();
   return (
     <div>
-      <Users data={{ users: [], loading: false }} userType="SI List" />
+      <Users userType="SI" />
       <CButton
         className="x_btn"
         color="success"

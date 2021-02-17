@@ -1,12 +1,15 @@
 import { CButton } from "@coreui/react";
 import { useHistory } from "react-router-dom";
 import React from "react";
+// import { connect } from "react-redux";
+// import { fetchUsers } from "../../../redux/actions/user"
 import Users from "../Users";
 const ListAcs = () => {
   const history = useHistory();
+
   return (
     <div>
-      <Users data={{ users: [], loading: false }} userType="ACP List" />
+      <Users userType="AC" />
       <CButton
         className="x_btn"
         color="success"
