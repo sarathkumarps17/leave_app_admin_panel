@@ -45,9 +45,27 @@ const ListAlbum = ({ userType, users, loading, fetchUsers }) => {
     return () => {
     }
   }, [fetchUsers, userType])
+  let designation;
+  let type;
+  switch (userType) {
+    case 2:
+      designation = "Assistant Commisionrs"
+      type = "AC"
+      break;
+    case 3:
+      designation = "Circle Inspectors"
+      type = "CI"
+      break;
+    case 4:
+      designation = "Sub Inspectors"
+      type = "SI"
+      break;
+    default:
+      break;
+  }
   return (
     <div>
-      <h1>{userType}</h1>
+      <h1>{designation}</h1>
       {loading ? (
         <Loader
           className="loader"
@@ -62,7 +80,7 @@ const ListAlbum = ({ userType, users, loading, fetchUsers }) => {
             <CRow>
               <CCol xl={12}>
                 <CDataTable
-                  items={users[userType]}
+                  items={users[type]}
                   fields={fields}
                   hover
                   sorter

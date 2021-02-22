@@ -73,7 +73,7 @@ const AddSi = ({ addUser }) => {
   const initialState = {
     name: "",
     penNumber: "",
-    userType: "SI",
+    userType: 4,
     email: "",
     password: "",
     subdivision: "",

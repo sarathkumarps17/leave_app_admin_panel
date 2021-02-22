@@ -1,6 +1,6 @@
 /* eslint-disable import/no-anonymous-default-export */
 import {
-    SHO_LOADED, AC_LOADED, SI_LOADED,
+    CI_LOADED, AC_LOADED, SI_LOADED,
     USERS_LOADING_FAILED,
     LOGOUT
 } from "../types";
@@ -8,7 +8,7 @@ import {
 const initialState = {
     loading: true,
     AC: [],
-    SHO: [],
+    CI: [],
     SI: []
 };
 
@@ -21,11 +21,11 @@ export default function (state = initialState, action) {
                 loading: false,
                 AC: [...payload]
             };
-        case SHO_LOADED:
+        case CI_LOADED:
             return {
                 ...state,
                 loading: false,
-                SHO: [...payload]
+                CI: [...payload]
             };
         case SI_LOADED:
             return {
@@ -38,7 +38,7 @@ export default function (state = initialState, action) {
             return {
                 loading: false,
                 AC: [],
-                SHO: [],
+                CI: [],
                 SI: []
             };
         default:

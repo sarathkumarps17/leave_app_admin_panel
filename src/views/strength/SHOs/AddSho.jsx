@@ -73,13 +73,12 @@ const AddSho = ({ addUser }) => {
   const initialState = {
     name: "",
     penNumber: "",
-    userType: "SHO",
+    userType: 3,
     email: "",
     password: "",
     subdivision: "",
     specialBranch: false,
     station: "",
-    accessLevel: 1,
     availableLeave: {
       cl: 24,
       cOff: 0,

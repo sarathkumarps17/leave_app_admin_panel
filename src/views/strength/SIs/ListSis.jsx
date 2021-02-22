@@ -6,7 +6,7 @@ const ListSis = () => {
   const history = useHistory();
   return (
     <div>
-      <Users userType="SI" />
+      <Users userType={4} />
       <CButton
         className="x_btn"
         color="success"

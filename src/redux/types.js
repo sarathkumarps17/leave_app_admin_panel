@@ -17,7 +17,7 @@ export const LOGIN_FAILURE = "LOGIN_FAILURE";
 export const LOGOUT = "LOGOUT";
 
 export const AC_LOADED = "AC_LOADED";
-export const SHO_LOADED = "SHO_LOADED";
+export const CI_LOADED = "CI_LOADED";
 export const SI_LOADED = "SI_LOADED";
 export const USERS_LOADING_FAILED = "USERS_LOADING_FAILED";
 export const CLEAR_USERS = "CLEAR_USERS";

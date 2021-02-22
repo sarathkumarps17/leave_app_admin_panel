@@ -56,12 +56,12 @@ const AddAc = ({ addUser }) => {
   const initialState = {
     name: "",
     penNumber: "",
-    userType: "AC",
+    userType: 2,
+    designation: "AC",
     email: "",
     password: "",
     subdivision: "",
     specialBrach: "",
-    accessLevel: 2,
     availableLeave: {
       cl: 24,
       cOff: 0,

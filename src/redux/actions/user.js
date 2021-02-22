@@ -1,7 +1,7 @@
 import setAuthToken from "../../utils/setAuthToken";
 import { setAlert } from "./alert";
 import {
-  SHO_LOADED, AC_LOADED, SI_LOADED, USERS_LOADING_FAILED
+  CI_LOADED, AC_LOADED, SI_LOADED, USERS_LOADING_FAILED
 
 } from "../types";
 import action from "./api";
@@ -43,13 +43,13 @@ export const fetchUsers = (userType) => async (dispatch) => {
         console.log(res.data);
         let type
         switch (userType) {
-          case "AC":
+          case 2:
             type = AC_LOADED
             break;
-          case "SHO":
-            type = SHO_LOADED
+          case 3:
+            type = CI_LOADED
             break;
-          case "SI":
+          case 4:
             type = SI_LOADED
             break;
           default:

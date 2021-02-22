@@ -9,7 +9,7 @@ const ListAcs = () => {
 
   return (
     <div>
-      <Users userType="AC" />
+      <Users userType={2} />
       <CButton
         className="x_btn"
         color="success"
