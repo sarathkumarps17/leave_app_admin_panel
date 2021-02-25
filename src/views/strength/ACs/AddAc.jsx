@@ -5,6 +5,7 @@ import { useFormik } from "formik";
 import action from "../../../redux/actions/api";
 import { addUser } from "../../../redux/actions/user";
 import {
+  CSwitch,
   CButton,
   CCard,
   CCardBody,
@@ -57,6 +58,7 @@ const AddAc = ({ addUser }) => {
     name: "",
     penNumber: "",
     userType: 2,
+    subdivisionCharge: true,
     designation: "AC",
     email: "",
     password: "",
@@ -64,8 +66,7 @@ const AddAc = ({ addUser }) => {
     specialBrach: "",
     availableLeave: {
       cl: 24,
-      cOff: 0,
-      dayOff: 0,
+      other: 0
     },
     dutyStatus: "active",
   };
@@ -229,6 +230,28 @@ const AddAc = ({ addUser }) => {
                   </CInputGroup>
                   <CInputGroup className="mb-4">
                     <CInputGroupPrepend>
+                      <CInputGroupText><span style={{ textDecoration: formik.values.subdivisionCharge ? "none" : "line-through" }}>Subdivision Charge</span></CInputGroupText>
+                    </CInputGroupPrepend>
+                    <CCol md="3">
+
+                    </CCol>
+                    <CCol md="3">
+                      <CSwitch
+                        name="subdivisionCharge"
+                        className="mr-1"
+                        color="success"
+                        {...formik.getFieldProps("subdivisionCharge")}
+                        defaultChecked
+                        variant="opposite"
+                      />
+                    </CCol>
+                    <CCol md="3">
+
+                    </CCol>
+
+                  </CInputGroup>
+                  <CInputGroup className="mb-4">
+                    <CInputGroupPrepend>
                       <CInputGroupText>Duty Status</CInputGroupText>
                     </CInputGroupPrepend>
                     <CSelect
@@ -244,6 +267,7 @@ const AddAc = ({ addUser }) => {
                       ))}
                     </CSelect>
                   </CInputGroup>
+
                   <div className="heading-center"> Available Lave Details</div>
 
                   <CInputGroup>
@@ -256,7 +280,7 @@ const AddAc = ({ addUser }) => {
                         {...formik.getFieldProps("availableLeave.cl")}
                       />
                     </CCol>
-                    <CCol md="4">
+                    {/* <CCol md="4">
                       <CLabel>C Off Available</CLabel>
                       <CInput
                         type="number"
@@ -273,7 +297,7 @@ const AddAc = ({ addUser }) => {
                         placeholder="Day Off"
                         {...formik.getFieldProps("availableLeave.dayOff")}
                       />
-                    </CCol>
+                    </CCol> */}
                   </CInputGroup>
                   <div className="sapce">
                     <br></br>
