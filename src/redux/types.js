@@ -22,5 +22,9 @@ export const SI_LOADED = "SI_LOADED";
 export const USERS_LOADING_FAILED = "USERS_LOADING_FAILED";
 export const CLEAR_USERS = "CLEAR_USERS";
 
+
+export const LEAVE_LOADED = "LEAVE_LOADED";
+export const LEAVE_LOADING_FAILED = "LEAVE_LOADING_FAILED";
+
 export const TOKEN_VALID = "TOKEN_VALID";
 export const TOKEN_EXPRIED = "TOKEN_EXPRIED";

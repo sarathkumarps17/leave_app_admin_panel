@@ -6,6 +6,7 @@ import { useHistory } from "react-router-dom"
 import action from "../../../redux/actions/api";
 import { addUser } from "../../../redux/actions/user";
 import {
+  CSwitch,
   CButton,
   CCard,
   CCardBody,
@@ -42,7 +43,6 @@ const AddSi = ({ addUser }) => {
     stations: [],
     subdivisions: [],
   });
-
   let history = useHistory()
   const [submitting, setSubmitting] = useState(false);
   useEffect(() => {
@@ -77,6 +77,7 @@ const AddSi = ({ addUser }) => {
     email: "",
     password: "",
     subdivision: "",
+    stationCharge: false,
     specialBranch: "",
     station: "",
     accessLevel: 1,
@@ -111,14 +112,18 @@ const AddSi = ({ addUser }) => {
       errors.password =
         "password Siuld be atleast 6 char long and must contain one number and special char";
     }
+    if (!values.station) {
+      errors.station = "Please Select a station";
+    }
     return errors;
   };
 
   const onSubmit = async (values) => {
     setSubmitting(true);
-    await addUser(values);
+    let res = await addUser(values);
     setSubmitting(false);
-    history.push("/si")
+    if (res) history.push("/si")
+
   };
   const formik = useFormik({
     initialValues: initialState,
@@ -244,6 +249,9 @@ const AddSi = ({ addUser }) => {
                       ))}
                     </CSelect>
                   </CInputGroup>
+                  {formik.errors.station && (
+                    <div className="error">{formik.errors.station}</div>
+                  )}
                   <CInputGroup className="mb-4">
                     <CInputGroupPrepend>
                       <CInputGroupText>Select Station</CInputGroupText>
@@ -273,9 +281,32 @@ const AddSi = ({ addUser }) => {
                   </CInputGroup>
                   <CInputGroup className="mb-4">
                     <CInputGroupPrepend>
+                      <CInputGroupText><span style={{ textDecoration: formik.values.stationCharge ? "none" : "line-through" }}>Station Charge</span></CInputGroupText>
+                    </CInputGroupPrepend>
+                    <CCol md="3">
+
+                    </CCol>
+                    <CCol md="3">
+                      <CSwitch
+                        name="stationCharge"
+                        className="mr-1"
+                        color="success"
+                        {...formik.getFieldProps("stationCharge")}
+                        // defaultChecked
+                        variant="opposite"
+                      />
+                    </CCol>
+                    <CCol md="3">
+
+                    </CCol>
+
+                  </CInputGroup>
+                  <CInputGroup className="mb-4">
+                    <CInputGroupPrepend>
                       <CInputGroupText>Duty Status</CInputGroupText>
                     </CInputGroupPrepend>
                     <CSelect
+                      disabled
                       custom
                       name="dutyStatu"
                       id="SelectLm"

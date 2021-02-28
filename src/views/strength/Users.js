@@ -1,20 +1,16 @@
 import React, { useEffect, Fragment } from "react";
 // import { useHistory } from "react-router-dom";
 import Loader from "react-loader-spinner";
-import { CCol, CDataTable, CRow, CButton } from "@coreui/react";
+import { CCol, CDataTable, CRow, CButton, CBadge } from "@coreui/react";
 import { fetchUsers } from "../../redux/actions/user"
-// import getFulldate from "../../utils/date";
-// import CIcon from "@coreui/icons-react";
-// import { freeSet } from "@coreui/icons";
 import { connect } from "react-redux";
-// import PropTypes from "prop-types";
 
-
-const fields = [
+const acFields = [
   { key: "name", _style: { width: "20%" } },
   { key: "penNumber", label: "Pen Number", _style: { width: "20%" } },
   {
-    key: "station",
+    label: "Subdivision",
+    key: "subdivision",
     _style: { width: "20%" },
   },
   {
@@ -25,8 +21,8 @@ const fields = [
     filter: false,
   },
   {
-    key: "lastLeave",
-    label: "Last Leave",
+    key: "email",
+    label: "Email",
     _style: { width: "20%" },
     sorter: false,
     filter: false,
@@ -39,7 +35,48 @@ const fields = [
     filter: false,
   },
 ];
-const ListAlbum = ({ userType, users, loading, fetchUsers }) => {
+const officersFields = [
+  { key: "name", _style: { width: "20%" } },
+  { key: "penNumber", label: "Pen Number", _style: { width: "20%" } },
+  {
+    label: "Station",
+    key: "station",
+    _style: { width: "20%" },
+  },
+  {
+    label: "Station charge",
+    key: "station_charge",
+    _style: {
+      width: "10%",
+      sorter: false,
+      filter: false,
+    },
+  },
+  {
+    key: "dutyStatus",
+    label: "Duty Status",
+    _style: { width: "20%" },
+    sorter: false,
+    filter: false,
+  },
+  {
+    key: "email",
+    label: "Email",
+    _style: { width: "20%" },
+    sorter: false,
+    filter: false,
+  },
+  {
+    key: "show_details",
+    label: "Details",
+    _style: { width: "10%" },
+    sorter: false,
+    filter: false,
+  },
+]
+
+const Users = ({ userType, users, loading, fetchUsers }) => {
+
   useEffect(() => {
     fetchUsers(userType);
     return () => {
@@ -47,18 +84,22 @@ const ListAlbum = ({ userType, users, loading, fetchUsers }) => {
   }, [fetchUsers, userType])
   let designation;
   let type;
+  let fields;
   switch (userType) {
     case 2:
       designation = "Assistant Commisionrs"
       type = "AC"
+      fields = acFields
       break;
     case 3:
-      designation = "Circle Inspectors"
+      designation = "Inspectors"
       type = "CI"
+      fields = officersFields
       break;
     case 4:
       designation = "Sub Inspectors"
       type = "SI"
+      fields = officersFields
       break;
     default:
       break;
@@ -90,14 +131,35 @@ const ListAlbum = ({ userType, users, loading, fetchUsers }) => {
                   pagination
                   columnFilter
                   scopedSlots={{
+
                     show_details: (item, index) => {
                       return (
                         <td className="py-2" key={index}>
-                          <CButton color="success" children="active" />
+                          <CButton size="sm" className="btn-square" color="primary" children="Show" />
                         </td>
                       );
                     },
-                    files: (item, index) => <td></td>,
+                    subdivision: (item, index) => {
+                      return (
+                        <td className="py-2" key={index}>
+                          {item.subdivision.name}
+                        </td>
+                      );
+                    },
+                    station: (item, index) => {
+                      return (
+                        <td className="py-2" key={index}>
+                          {item.station.name}
+                        </td>
+                      );
+                    },
+                    station_charge: (item, index) => {
+                      return (
+                        <td className="py-2" key={index}>
+                          {item.stationCharge ? <CBadge children="SHO" color="warning" /> : "Nill"}
+                        </td>
+                      );
+                    },
                   }}
                 />
               </CCol>
@@ -110,4 +172,4 @@ const ListAlbum = ({ userType, users, loading, fetchUsers }) => {
 const mapStateToProps = state => ({
   users: state.users
 })
-export default connect(mapStateToProps, { fetchUsers })(ListAlbum);
+export default connect(mapStateToProps, { fetchUsers })(Users);

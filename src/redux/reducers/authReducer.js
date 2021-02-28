@@ -11,6 +11,7 @@ const initialState = {
   loading: true,
   token: localStorage.getItem("token"),
   isAuthenticated: false,
+  adminType: ""
 };
 
 export default function (state = initialState, action) {
@@ -18,21 +19,23 @@ export default function (state = initialState, action) {
   switch (type) {
     case LOGIN_SUCSUSS:
       localStorage.setItem("token", payload.token);
+      localStorage.setItem("adminType", payload.adminType);
       return {
         ...state,
         token: payload.token,
         loading: false,
         isAuthenticated: true,
-        userType: payload.userType,
+        adminType: payload.adminType,
       };
     case LOGIN_FAILURE:
     case TOKEN_EXPRIED:
     case LOGOUT:
       localStorage.removeItem("token");
+      localStorage.removeItem("adminType");
       localStorage.removeItem("persist:root");
       return {
         ...state,
-        userType: "",
+        adminType: "",
         token: null,
         loading: false,
         isAuthenticated: false,

@@ -3,6 +3,9 @@ import React from "react";
 import CIcon from "@coreui/icons-react";
 import { freeSet } from "@coreui/icons";
 
+// let adminType = localStorage.getItem("adminType");
+// let dcp_tab = false
+// if (adminType === "CP") dcp_tab = true
 export default [
   {
     _tag: "CSidebarNavItem",
@@ -32,7 +35,7 @@ export default [
       },
       {
         _tag: "CSidebarNavItem",
-        name: "SHOs",
+        name: "Inspector's",
         to: "/sho",
         icon: (
           <CIcon content={freeSet.cilHome} customClasses="c-sidebar-nav-icon" />
@@ -40,7 +43,7 @@ export default [
       },
       {
         _tag: "CSidebarNavItem",
-        name: "SIs",
+        name: "Sub Inspector's",
         to: "/si",
         icon: (
           <CIcon
@@ -52,10 +55,41 @@ export default [
     ],
   },
   {
-    _tag: "CSidebarNavItem",
+    _tag: "CSidebarNavDropdown",
     name: "Leave",
-    to: "/leave",
     icon: <CIcon content={freeSet.cilPen} customClasses="c-sidebar-nav-icon" />,
+    _children: [
+      {
+        _tag: "CSidebarNavItem",
+        name: "AC Leave",
+        to: "/ac_leave",
+        icon: (
+          <CIcon content={freeSet.cilLan} customClasses="c-sidebar-nav-icon" />
+        ),
+      },
+      {
+        _tag: "CSidebarNavItem",
+        name: "Officer's Leave",
+        to: "/officers_leave",
+        icon: (
+          <CIcon content={freeSet.cilHome} customClasses="c-sidebar-nav-icon" />
+        ),
+      },
+      // {
+      //   _tag: "CSidebarNavItem",
+      //   name: "DCP Leave",
+      //   to: "/dcp_leave",
+      //   addLinkClass: 'c-disabled',
+      //   disabled: true,
+      //   icon: (
+      //     <CIcon
+      //       content={freeSet.cilShieldAlt}
+      //       customClasses="c-sidebar-nav-icon"
+      //     />
+      //   ),
+      // }
+
+    ],
   },
   {
     _tag: "CSidebarNavItem",

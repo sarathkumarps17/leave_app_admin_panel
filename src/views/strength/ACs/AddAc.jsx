@@ -100,9 +100,10 @@ const AddAc = ({ addUser }) => {
 
   const onSubmit = async (values) => {
     setSubmitting(true);
-    await addUser(values);
+    let res = await addUser(values);
     setSubmitting(false);
-    history.push("/acp")
+    if (res) history.push("/acp")
+
   };
   const formik = useFormik({
     initialValues: initialState,
@@ -218,7 +219,7 @@ const AddAc = ({ addUser }) => {
                       required
                       {...formik.getFieldProps("subdivision")}
                     >
-                      <option value="" selected disabled hidden>
+                      <option value="" disabled hidden>
                         Select Subdivision
                       </option>
                       {subdivisions.map((option) => (
@@ -255,6 +256,7 @@ const AddAc = ({ addUser }) => {
                       <CInputGroupText>Duty Status</CInputGroupText>
                     </CInputGroupPrepend>
                     <CSelect
+                      disabled
                       custom
                       name="dutyStatu"
                       id="SelectLm"
@@ -280,9 +282,10 @@ const AddAc = ({ addUser }) => {
                         {...formik.getFieldProps("availableLeave.cl")}
                       />
                     </CCol>
-                    {/* <CCol md="4">
+                    <CCol md="4">
                       <CLabel>C Off Available</CLabel>
                       <CInput
+                        disabled
                         type="number"
                         name="availableLeave.cOff"
                         placeholder="C Off Available"
@@ -292,12 +295,13 @@ const AddAc = ({ addUser }) => {
                     <CCol md="4">
                       <CLabel>Day Off Available</CLabel>
                       <CInput
+                        disabled
                         type="number"
                         name="availableLeave.dayOff"
                         placeholder="Day Off"
                         {...formik.getFieldProps("availableLeave.dayOff")}
                       />
-                    </CCol> */}
+                    </CCol>
                   </CInputGroup>
                   <div className="sapce">
                     <br></br>

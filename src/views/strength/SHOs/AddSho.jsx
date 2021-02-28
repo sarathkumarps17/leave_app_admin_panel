@@ -19,6 +19,7 @@ import {
   CLabel,
   CSelect,
   CRow,
+  CSwitch
 } from "@coreui/react";
 import CIcon from "@coreui/icons-react";
 import Loader from "react-loader-spinner";
@@ -78,6 +79,7 @@ const AddSho = ({ addUser }) => {
     password: "",
     subdivision: "",
     specialBranch: false,
+    stationCharge: true,
     station: "",
     availableLeave: {
       cl: 24,
@@ -110,14 +112,18 @@ const AddSho = ({ addUser }) => {
       errors.password =
         "password should be atleast 6 char long and must contain one number and special char";
     }
+    if (!values.station) {
+      errors.station = "Please Select a station";
+    }
     return errors;
   };
 
   const onSubmit = async (values) => {
     setSubmitting(true);
-    await addUser(values);
+    let res = await addUser(values);
     setSubmitting(false);
-    history.push("/sho")
+    if (res) history.push("/sho")
+
   };
   const formik = useFormik({
     initialValues: initialState,
@@ -133,7 +139,7 @@ const AddSho = ({ addUser }) => {
             <CCard className="mx-4">
               <CCardBody className="p-4">
                 <CForm onSubmit={formik.handleSubmit}>
-                  <h1>Add New SHO</h1>
+                  <h1>Add New Inspector</h1>
                   {formik.touched.name && formik.errors.name && (
                     <div className="error">{formik.errors.name}</div>
                   )}
@@ -233,7 +239,7 @@ const AddSho = ({ addUser }) => {
                       required
                       {...formik.getFieldProps("subdivision")}
                     >
-                      <option value="" selected disabled hidden>
+                      <option value="" disabled hidden>
                         Select Subdivision
                       </option>
                       {state.subdivisions.map((option) => (
@@ -243,6 +249,9 @@ const AddSho = ({ addUser }) => {
                       ))}
                     </CSelect>
                   </CInputGroup>
+                  {formik.errors.station && (
+                    <div className="error">{formik.errors.station}</div>
+                  )}
                   <CInputGroup className="mb-4">
                     <CInputGroupPrepend>
                       <CInputGroupText>Select Station</CInputGroupText>
@@ -268,16 +277,39 @@ const AddSho = ({ addUser }) => {
                   </CInputGroup>
                   <CInputGroup className="mb-4">
                     <CInputGroupPrepend>
+                      <CInputGroupText><span style={{ textDecoration: formik.values.stationCharge ? "none" : "line-through" }}>Station Charge</span></CInputGroupText>
+                    </CInputGroupPrepend>
+                    <CCol md="3">
+
+                    </CCol>
+                    <CCol md="3">
+                      <CSwitch
+                        name="stationCharge"
+                        className="mr-1"
+                        color="success"
+                        {...formik.getFieldProps("stationCharge")}
+                        defaultChecked
+                        variant="opposite"
+                      />
+                    </CCol>
+                    <CCol md="3">
+
+                    </CCol>
+
+                  </CInputGroup>
+                  <CInputGroup className="mb-4">
+                    <CInputGroupPrepend>
                       <CInputGroupText>Duty Status</CInputGroupText>
                     </CInputGroupPrepend>
                     <CSelect
+                      disabled
                       custom
                       name="dutyStatu"
                       id="SelectLm"
                       required
                       {...formik.getFieldProps("dutyStatus")}
                     >
-                      <option value="" selected disabled hidden>
+                      <option value="select Station" disabled hidden>
                         Select Station
                       </option>
                       {dutyStatus.map((option) => (
@@ -302,6 +334,7 @@ const AddSho = ({ addUser }) => {
                     <CCol md="4">
                       <CLabel>C Off Available</CLabel>
                       <CInput
+                        disabled
                         type="number"
                         name="availableLeave.cOff"
                         placeholder="C Off Available"
@@ -311,6 +344,7 @@ const AddSho = ({ addUser }) => {
                     <CCol md="4">
                       <CLabel>Day Off Available</CLabel>
                       <CInput
+                        disabled
                         type="number"
                         name="availableLeave.dayOff"
                         placeholder="Day Off"
@@ -336,7 +370,7 @@ const AddSho = ({ addUser }) => {
                         color="success"
                         block
                       >
-                        Add SHO
+                        Add Inspector
                       </CButton>
                     )}
                 </CForm>
@@ -349,7 +383,7 @@ const AddSho = ({ addUser }) => {
   );
 };
 AddSho.propTypes = {
-  AddSho: PropTypes.func.isRequired,
+  addUser: PropTypes.func.isRequired,
 };
 
 export default connect(null, { addUser })(AddSho);

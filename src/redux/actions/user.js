@@ -21,13 +21,18 @@ export const addUser = (userData) => async (dispatch) => {
       res = await action.put(`/admin/addUser`, body, config);
       if (res.status === 200) {
         dispatch(setAlert("User Added Successfully", "success"));
+        return true
       } else {
         dispatch(setAlert("Failed Adding User", "warning"));
+        return false
       }
     } catch (err) {
-      if (err.response.status === 400)
-        return dispatch(setAlert("User Alredy Exist", "warning"));
+      if (err.response.status === 400) {
+        dispatch(setAlert("User Alredy Exist", "warning"));
+        return false
+      }
       dispatch(setAlert("Failed Adding User", "danger"));
+      return false
       // console.log(err.response.data.err);
     }
   }

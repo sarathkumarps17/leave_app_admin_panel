@@ -10,7 +10,7 @@ const ListShos = () => {
       <CButton
         className="x_btn"
         color="success"
-        children="Add new SHO"
+        children="Add new Inspector"
         onClick={() => history.push("/add_sho")}
       />
     </div>

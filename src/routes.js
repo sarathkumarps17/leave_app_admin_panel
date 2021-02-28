@@ -1,5 +1,7 @@
 import React from "react";
+import ACLeave from "./views/leave/ACLeave";
 import ListLeaveApplications from "./views/leave/ListLeaveApplications";
+import OfficersLeave from "./views/leave/OfficersLeave";
 import AddAc from "./views/strength/ACs/AddAc";
 import ListAcs from "./views/strength/ACs/ListAcs";
 import AddSho from "./views/strength/SHOs/AddSho";
@@ -19,10 +21,16 @@ const routes = [
   { path: "/add_si", exact: true, name: "Add SI", component: AddSi },
   { path: "/si", exact: true, name: "SI List", component: ListSis },
   {
-    path: "/leave",
+    path: "/ac_leave",
     exact: true,
-    name: "Leave Applications",
-    component: ListLeaveApplications,
+    name: "AC Leave Applications",
+    component: ACLeave,
+  },
+  {
+    path: "/officers_leave",
+    exact: true,
+    name: "Officers Leave Applications",
+    component: OfficersLeave,
   },
 ];
 

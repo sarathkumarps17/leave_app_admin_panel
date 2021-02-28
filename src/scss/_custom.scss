@@ -28,42 +28,6 @@
   // top: 20vh;
   // left: 15vw;
 }
-.carousel {
-  margin: 0 auto 3vh auto;
-  max-width: 100%;
-  vertical-align: middle;
-  padding: 2px 0;
-}
-.album {
-  text-align: center;
-  padding-bottom: 5px;
-  &_heading {
-    text-decoration: solid;
-    color: black;
-    text-transform: uppercase;
-  }
-  &_description {
-    color: #303c54;
-    text-transform: capitalize;
-  }
-}
-.back_button {
-  position: fixed;
-  top: 65px;
-  z-index: 100000;
-}
-.carousel_controle {
-  height: 30vh;
-  margin: auto 0 auto 0;
-}
-.carousel_caption {
-  width: 20vw;
-  margin: 0 auto 0 auto;
-}
-.carousel_close_btn {
-  width: 10vw;
-  margin-left: 45vh;
-}
 
 .page_heading {
   text-align: center;
@@ -152,9 +116,7 @@
   color: #0c3992;
   cursor: pointer;
 }
-// .ad_row {
-//   height: 20px;
-// }
+
 .ad_widget {
   height: 40px;
 }
@@ -167,9 +129,6 @@
 .msg {
   padding-top: 100px;
   text-align: center;
-}
-.ad_view_port {
-  padding: 5px;
 }
 .add_view_btn {
   text-align: center;
@@ -195,4 +154,9 @@
 .space {
   padding-top: 10px;
   margin: 10px;
+}
+
+.model-lg {
+  height: 50vh !important;
+  width: 70vw !important;
 }
