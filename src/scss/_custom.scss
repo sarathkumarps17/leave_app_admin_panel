@@ -28,7 +28,11 @@
   // top: 20vh;
   // left: 15vw;
 }
-
+.back_button {
+  position: fixed;
+  top: 65px;
+  z-index: 100000;
+}
 .page_heading {
   text-align: center;
   text-decoration: underline;
@@ -99,7 +103,7 @@
   margin-left: 20%;
 }
 .widget {
-  height: 14rem;
+  height: 20vh;
 }
 .loader {
   position: absolute;
@@ -159,4 +163,16 @@
 .model-lg {
   height: 50vh !important;
   width: 70vw !important;
+}
+.reject-btn {
+  padding-top: 8px;
+}
+// .leave-calendar {
+//   height: 40vh;
+// }
+// .strength {
+//   height: 15vh;
+// }
+.rbc-calendar {
+  height: 50vh !important;
 }

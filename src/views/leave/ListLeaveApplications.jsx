@@ -22,7 +22,7 @@ const ACfields = [
 
   {
     key: "lastLeave",
-    label: "Last Leave",
+    label: "Last Approved Leave",
     _style: { width: "20%" },
     sorter: false,
     filter: false,
@@ -96,7 +96,7 @@ const ListLeaveApplications = ({ loading, leave, type }) => {
         </CModalHeader>
         <CContainer fluid>
           <CModalBody>
-            {show.show && <LeaveDetails tyep={type} leave={show.leave} setshow={setshow} />}
+            {show.show && <LeaveDetails tyep={type} leave={show.leave} modelShow={setshow} />}
           </CModalBody>
         </CContainer>
       </CModal>
@@ -160,6 +160,13 @@ const ListLeaveApplications = ({ loading, leave, type }) => {
                           {(item.userId && item.userId.station) && <><h6>{item.userId.station.name.toUpperCase()}</h6>
                             {item.userId.stationCharge && "SHO"}
                           </>}
+                        </td>
+                      );
+                    },
+                    lastLeave: (item, index) => {
+                      return (
+                        <td className="py-2" key={index}>
+                          {item.userId.lastLeaveDate.length && item.userId.lastLeaveDate.map((entry, ind) => <p key={ind}>{new Date(entry).toDateString().slice(3)}</p>)}
                         </td>
                       );
                     },

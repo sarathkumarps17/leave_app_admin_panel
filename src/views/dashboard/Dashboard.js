@@ -7,6 +7,7 @@ import { connect } from "react-redux";
 import DataWidget from "../widgets/DataWidget";
 import StatusWidget from "../widgets/StatusWidget";
 import { CCol, CRow } from "@coreui/react";
+import LeaveCalendar from "./LeaveCalendar";
 // import UserStatChart from "./UserStatChart";
 
 const Dashboard = ({ data, dashboardData, checkToken, isAuthenticated }) => {
@@ -20,7 +21,7 @@ const Dashboard = ({ data, dashboardData, checkToken, isAuthenticated }) => {
   return (
     <Fragment>
       {!data.loading && (
-        <CRow>
+        <CRow className="strength">
           <CCol sm="8" lg="4">
             <DataWidget
               datapoints={[10, 23, 163, 128, 329, 335, 523, 420, 360]}
@@ -53,7 +54,7 @@ const Dashboard = ({ data, dashboardData, checkToken, isAuthenticated }) => {
           </CCol>
         </CRow>
       )}
-      {}
+      <LeaveCalendar />
     </Fragment>
   );
 };

@@ -16,22 +16,16 @@ export const dashboardData = () => async (dispatch) => {
     if (localStorage.token) {
         setAuthToken(localStorage.token);
         try {
-            const config = {
-                headers: {
-                    "Content-Type": "application/json",
-                },
-            };
-            let res = await action.get(`/admin/dashboard`, config);
-            dispatch({
+
+            let res = await action.get(`/admin/getMonthlyLeaveStat`);
+            if (res.data) dispatch({
                 type: DASHBOARD_DATA_FETCHED,
                 payload: res.data,
             });
+            dispatch(setAlert("Monthly Leave Stat fetched", "success"));
+
         } catch (err) {
             console.log(err);
-            // let errors = err.response.data.errors;
-            // if (errors) {
-            //   errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
-            // }
             dispatch({ type: FAILED_DATA_FETCHING });
             dispatch(setAlert("Data fetching failed", "danger"));
         }

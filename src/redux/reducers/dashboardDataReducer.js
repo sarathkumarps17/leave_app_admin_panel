@@ -14,7 +14,7 @@ export default function (state = initialState, action) {
         case DASHBOARD_DATA_FETCHED:
             return {
                 ...state,
-                data: { ...payload },
+                data: [...payload],
                 loading: false,
             };
         case FAILED_DATA_FETCHING:

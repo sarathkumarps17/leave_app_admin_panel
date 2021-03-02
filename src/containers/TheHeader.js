@@ -73,7 +73,7 @@ const TheHeader = () => {
           <CHeaderNavLink to="/acp">ACs</CHeaderNavLink>
         </CHeaderNavItem>
         <CHeaderNavItem className="px-3">
-          <CHeaderNavLink to="/sho">SHOs</CHeaderNavLink>
+          <CHeaderNavLink to="/sho">Inspectors</CHeaderNavLink>
         </CHeaderNavItem>
         <CHeaderNavItem className="px-3">
           <CHeaderNavLink to="/si">SIs</CHeaderNavLink>
@@ -92,7 +92,7 @@ const TheHeader = () => {
         <CBreadcrumbRouter
           className="border-0 c-subheader-nav m-0 px-0 px-md-3"
 
-          // routes={routes}
+        // routes={routes}
         />
         <BackButton />
         <div className="d-md-down-none mfe-2 c-subheader-nav">

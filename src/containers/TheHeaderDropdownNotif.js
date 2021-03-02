@@ -9,7 +9,7 @@ import {
 } from "@coreui/react";
 import CIcon from "@coreui/icons-react";
 import { freeSet } from "@coreui/icons";
-import openSocket from "socket.io-client";
+// import openSocket from "socket.io-client";
 import setAuthToken from "../utils/setAuthToken";
 import action from "../redux/actions/api";
 
