@@ -5,6 +5,7 @@ import { useFormik } from "formik";
 import { useHistory } from "react-router-dom"
 import action from "../../../redux/actions/api";
 import { addUser } from "../../../redux/actions/user";
+import { freeSet } from '@coreui/icons';
 import {
   CSwitch,
   CButton,
@@ -74,6 +75,7 @@ const AddSi = ({ addUser }) => {
     name: "",
     penNumber: "",
     userType: 4,
+    phoneNumber: "",
     email: "",
     password: "",
     subdivision: "",
@@ -92,7 +94,7 @@ const AddSi = ({ addUser }) => {
     /^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i
   );
   const pass = new RegExp(/^(?=.*?[#?!@$%^&*-]).{6,}$/);
-
+  const phoneValid = new RegExp(/^[6-9]\d{9}$/);
   const validate = (values) => {
     let errors = {};
     if (!values.email) {
@@ -105,6 +107,11 @@ const AddSi = ({ addUser }) => {
       errors.penNumber = "PEN Nunber is Required";
     } else if (!/^[0-9]{6,6}$/i.test(values.penNumber)) {
       errors.penNumber = "Invalid PEN Number";
+    }
+    if (!values.phoneNumber) {
+      errors.phoneNumber = "Phone Number is required";
+    } else if (!phoneValid.test(values.phoneNumber)) {
+      errors.phoneNumber = "Invalid Phone Number";
     }
     if (!values.password) {
       errors.password = "Password is Required";
@@ -169,7 +176,7 @@ const AddSi = ({ addUser }) => {
                   <CInputGroup className="mb-3">
                     <CInputGroupPrepend>
                       <CInputGroupText>
-                        <CIcon name="cil-user" />
+                        <CIcon content={freeSet.cilFingerprint} />
                       </CInputGroupText>
                     </CInputGroupPrepend>
 
@@ -185,6 +192,30 @@ const AddSi = ({ addUser }) => {
                       autoComplete="penNumber"
                       required
                       {...formik.getFieldProps("penNumber")}
+                    />
+                  </CInputGroup>
+                  {formik.touched.phoneNumber && formik.errors.phoneNumber && (
+                    <div className="error">{formik.errors.phoneNumber}</div>
+                  )}
+                  <CInputGroup className="mb-3">
+                    <CInputGroupPrepend>
+                      <CInputGroupText>
+                        <CIcon content={freeSet.cilPhone} />
+                      </CInputGroupText>
+                    </CInputGroupPrepend>
+
+                    <CInput
+                      className={
+                        formik.touched.phoneNumber &&
+                        formik.errors.phoneNumber &&
+                        "form-control-warning"
+                      }
+                      type="number"
+                      name="phoneNumber"
+                      placeholder="Phone Number"
+                      autoComplete="phoneNumber"
+                      required
+                      {...formik.getFieldProps("phoneNumber")}
                     />
                   </CInputGroup>
                   {formik.touched.password && formik.errors.password && (

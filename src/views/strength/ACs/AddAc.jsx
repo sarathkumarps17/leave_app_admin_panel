@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { useHistory } from "react-router-dom"
 import { useFormik } from "formik";
+import { freeSet } from '@coreui/icons';
 import action from "../../../redux/actions/api";
 import { addUser } from "../../../redux/actions/user";
 import {
@@ -58,6 +59,7 @@ const AddAc = ({ addUser }) => {
     name: "",
     penNumber: "",
     userType: 2,
+    phoneNumber: "",
     subdivisionCharge: true,
     designation: "AC",
     email: "",
@@ -74,6 +76,7 @@ const AddAc = ({ addUser }) => {
     /^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i
   );
   const pass = new RegExp(/^(?=.*?[#?!@$%^&*-]).{6,}$/);
+  const phoneValid = new RegExp(/^[6-9]\d{9}$/);
   // const [input, setInput] = useState(initialState);
   const [submitting, setSubmitting] = useState(false);
   const validate = (values) => {
@@ -82,6 +85,11 @@ const AddAc = ({ addUser }) => {
       errors.email = "Email is required";
     } else if (!re.test(values.email)) {
       errors.email = "Invalid Email address";
+    }
+    if (!values.phoneNumber) {
+      errors.phoneNumber = "Phone Number is required";
+    } else if (!phoneValid.test(values.phoneNumber)) {
+      errors.phoneNumber = "Invalid Phone Number";
     }
     if (!values.name) errors.name = " Name is Required";
     if (!values.penNumber) {
@@ -149,7 +157,7 @@ const AddAc = ({ addUser }) => {
                   <CInputGroup className="mb-3">
                     <CInputGroupPrepend>
                       <CInputGroupText>
-                        <CIcon name="cil-user" />
+                        <CIcon content={freeSet.cilFingerprint} />
                       </CInputGroupText>
                     </CInputGroupPrepend>
 
@@ -165,6 +173,30 @@ const AddAc = ({ addUser }) => {
                       autoComplete="penNumber"
                       required
                       {...formik.getFieldProps("penNumber")}
+                    />
+                  </CInputGroup>
+                  {formik.touched.phoneNumber && formik.errors.phoneNumber && (
+                    <div className="error">{formik.errors.phoneNumber}</div>
+                  )}
+                  <CInputGroup className="mb-3">
+                    <CInputGroupPrepend>
+                      <CInputGroupText>
+                        <CIcon content={freeSet.cilPhone} />
+                      </CInputGroupText>
+                    </CInputGroupPrepend>
+
+                    <CInput
+                      className={
+                        formik.touched.phoneNumber &&
+                        formik.errors.phoneNumber &&
+                        "form-control-warning"
+                      }
+                      type="number"
+                      name="phoneNumber"
+                      placeholder="Phone Number"
+                      autoComplete="phoneNumber"
+                      required
+                      {...formik.getFieldProps("phoneNumber")}
                     />
                   </CInputGroup>
                   {formik.touched.password && formik.errors.password && (

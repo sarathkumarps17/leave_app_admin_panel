@@ -3,12 +3,13 @@ import { Calendar, momentLocalizer } from 'react-big-calendar'
 import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { connect } from "react-redux";
-import { dashboardData } from "../../redux/actions/dashboard"
+import { dashboardData } from "../../redux/actions/dashboard";
+import Loader from "react-loader-spinner";
 const localizer = momentLocalizer(moment);
 
 
 
-const LeaveCalendar = ({ data, dashboardData }) => {
+const LeaveCalendar = ({ data, dashboardData, loading }) => {
     const [state, setstate] = useState([])
     useEffect(() => {
         const fetchDashBoardData = async () => {
@@ -20,22 +21,30 @@ const LeaveCalendar = ({ data, dashboardData }) => {
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
-    try {
-        return (
-            <div className="leave-calendar">
-                <Calendar
+
+    return (
+
+        <div className="leave-calendar">
+            {loading ? (
+                <Loader
+                    className="loader"
+                    type="Puff"
+                    color="#321FDB"
+                    height={150}
+                    width={150}
+                    timeout={3000} //3 secs
+                />
+            ) : <Calendar
                     localizer={localizer}
                     events={state}
                     startAccessor="start"
                     endAccessor="end"
                 // style={{ height: 500 }}
-                />
-            </div>
-        )
-    } catch (error) {
-        console.log(error)
-    }
-    // console.log(data);
+                />}
+
+        </div>
+    )
+
 
 }
 const mapStateToProps = state => ({

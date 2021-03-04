@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { logout } from "../redux/actions/auth";
 import PropTypes from "prop-types";
 import { Redirect, useHistory } from "react-router-dom";
+import admin from "../assets/admin.png"
 import {
   // CBadge,
   CDropdown,
@@ -25,7 +26,13 @@ const TheHeaderDropdown = ({ auth: { isAuthenticated }, logout }) => {
   return (
     <CDropdown inNav className="c-header-nav-items mx-2" direction="down">
       <CDropdownToggle className="c-header-nav-link" caret={false}>
-        <div className="c-avatar"></div>
+        <div className="c-avatar">
+          <CImg
+            src={admin}
+            className="c-avatar-img"
+            alt="admin@vacationme.net"
+          />
+        </div>
       </CDropdownToggle>
       <CDropdownMenu className="pt-0" placement="bottom-end">
         <CDropdownItem divider />
