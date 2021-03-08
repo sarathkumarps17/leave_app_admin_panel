@@ -28,6 +28,15 @@
   // top: 20vh;
   // left: 15vw;
 }
+.c-main {
+  padding-top: 3px !important;
+}
+.c-subheader {
+  height: 10px !important;
+}
+// .c-header {
+//   height: 5vh !important;
+// }
 .back_button {
   position: fixed;
   top: 65px;
@@ -103,7 +112,7 @@
   margin-left: 20%;
 }
 .widget {
-  height: 20vh;
+  height: 17vh;
 }
 .loader {
   position: absolute;
@@ -169,5 +178,12 @@
 }
 
 .rbc-calendar {
-  height: 50vh !important;
+  height: 60vh !important;
+}
+// .rbc-row-segment {
+//   height: 0.25vh;
+// }
+.admin-type {
+  padding-top: 2vh;
+  text-align: center;
 }

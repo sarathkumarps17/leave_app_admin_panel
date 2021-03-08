@@ -26,7 +26,7 @@ const StatusWidget = ({
       leftHeader={leftHeader}
       leftFooter={leftFooter}
     >
-      <CIcon name={iconName} height="40" className="my-4" />
+      <CIcon name={iconName} height="10" className="my-4" />
       <ChartLineSimple
         className="position-absolute w-100 h-100"
         backgroundColor="rgba(255,255,255,.1)"
@@ -44,7 +44,7 @@ const StatusWidget = ({
         leftHeader={leftHeader}
         leftFooter={leftFooter}
       >
-        <CIcon content={freeSet[`${iconName}`]} height="42" className="my-4" />
+        <CIcon content={freeSet[`${iconName}`]} height="25" className="my-4" />
       </CWidgetBrand>
     );
 };

@@ -25,7 +25,7 @@ import {
   TheHeaderDropdownNotif,
   // TheHeaderDropdownTasks
 } from "./index";
-
+const adminType = localStorage.getItem("adminType");
 const TheHeader = () => {
   const dispatch = useDispatch();
   const sidebarShow = useSelector((state) => state.show.sidebarShow);
@@ -65,6 +65,9 @@ const TheHeader = () => {
             className="c-logo-img"
             alt="logo"
           />
+          <h3 className="admin-type">
+            {adminType}
+          </h3>
         </CSubheader>
       </CHeaderBrand>
 

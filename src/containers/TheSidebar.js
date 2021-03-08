@@ -14,12 +14,11 @@ import {
   CSidebarHeader,
 } from "@coreui/react";
 import logo from "../assets/dome-logo.png";
-
 import CIcon from "@coreui/icons-react";
 
 // sidebar nav config
 import navigation from "./_nav";
-
+const adminType = localStorage.getItem("adminType");
 const TheSidebar = () => {
   const dispatch = useDispatch();
   const show = useSelector((state) => state.show.sidebarShow);
@@ -38,6 +37,9 @@ const TheSidebar = () => {
             className="c-logo-img"
             alt="logo"
           />
+          <h3>
+            {adminType}
+          </h3>
         </CSidebarHeader>
 
         <CIcon
