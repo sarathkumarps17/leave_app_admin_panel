@@ -8,7 +8,7 @@ import action from "./api";
 
 export const addUser = (userData) => async (dispatch) => {
   if (localStorage.token) {
-    console.log(userData);
+    // console.log(userData);
     try {
       setAuthToken(localStorage.token);
       let res;
