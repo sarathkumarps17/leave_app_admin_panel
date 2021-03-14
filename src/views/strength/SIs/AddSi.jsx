@@ -51,18 +51,15 @@ const AddSi = ({ addUser }) => {
       try {
         let res = await action.get(`/admin/pageDetails/si`);
         let stations = [];
-        if (res) {
-          res.data.stations.forEach((item) => {
-            stations.push({
-              name: item.name,
-              _id: item._id,
-              subdivision_id: item.subdivision._id,
-            });
-          });
-          setstate({
-            stations: stations,
-            subdivisions: [...res.data.subdivisions],
-          });
+        if (res.data) {
+          // res.data.stations.forEach((item) => {
+          //   stations.push({
+          //     name: item.name,
+          //     _id: item._id,
+          //     subdivision_id: item.subdivision._id,
+          //   });
+          // });
+          setstate(res.data);
           // console.log(state);
         }
       } catch (error) {
@@ -299,7 +296,7 @@ const AddSi = ({ addUser }) => {
                       </option>
                       {state.stations.map((option) => {
                         if (
-                          option.subdivision_id === formik.values.subdivision
+                          option.subdivision._id === formik.values.subdivision
                         ) {
                           return (
                             <option key={option._id} value={option._id}>
@@ -393,15 +390,15 @@ const AddSi = ({ addUser }) => {
                       timeout={10000} //10 secs
                     />
                   ) : (
-                      <CButton
-                        className="x_btn"
-                        type="submit"
-                        color="success"
-                        block
-                      >
-                        Add SI
-                      </CButton>
-                    )}
+                    <CButton
+                      className="x_btn"
+                      type="submit"
+                      color="success"
+                      block
+                    >
+                      Add SI
+                    </CButton>
+                  )}
                 </CForm>
               </CCardBody>
             </CCard>

@@ -23,6 +23,7 @@ import {
 } from "@coreui/react";
 import CIcon from "@coreui/icons-react";
 import Loader from "react-loader-spinner";
+import { Fragment } from "react";
 
 const dutyStatus = [
   {
@@ -39,15 +40,18 @@ const dutyStatus = [
   },
 ];
 const AddAc = ({ addUser }) => {
-  const [subdivisions, setSubdivisions] = useState([]);
+  const [subdivisions, setSubdivisions] = useState([{ name: "", value: "" }]);
+  const [loading, setLoading] = useState(true)
   let history = useHistory()
   useEffect(() => {
     const getPagedetails = async () => {
       try {
+        setLoading(true);
         let res = await action.get(`/admin/pageDetails/AC`);
         if (res) {
           setSubdivisions([...res.data]);
-          // console.log(res.data);
+          console.log(res.data);
+          setLoading(false);
         }
       } catch (error) {
         console.log(error);
@@ -120,233 +124,234 @@ const AddAc = ({ addUser }) => {
   });
 
   return (
-    <div className="flex-row align-items-center">
-      <CContainer>
-        <CRow className="justify-content-center">
-          <CCol md="12" lg="8" xl="8">
-            <CCard className="mx-4">
-              <CCardBody className="p-4">
-                <CForm onSubmit={formik.handleSubmit}>
-                  <h1>Add New ACP</h1>
-                  {formik.touched.name && formik.errors.name && (
-                    <div className="error">{formik.errors.name}</div>
-                  )}
-                  <CInputGroup className="mb-3">
-                    <CInputGroupPrepend>
-                      <CInputGroupText>
-                        <CIcon name="cil-user" />
-                      </CInputGroupText>
-                    </CInputGroupPrepend>
-                    <CInput
-                      className={
-                        formik.touched.name &&
-                        formik.errors.name &&
-                        "form-control-warning"
-                      }
-                      type="text"
-                      name="name"
-                      placeholder="Name"
-                      autoComplete="name"
-                      required
-                      {...formik.getFieldProps("name")}
-                    />
-                  </CInputGroup>
-                  {formik.touched.penNumber && formik.errors.penNumber && (
-                    <div className="error">{formik.errors.penNumber}</div>
-                  )}
-                  <CInputGroup className="mb-3">
-                    <CInputGroupPrepend>
-                      <CInputGroupText>
-                        <CIcon content={freeSet.cilFingerprint} />
-                      </CInputGroupText>
-                    </CInputGroupPrepend>
+    <Fragment>
+      <div className="flex-row align-items-center">
+        <CContainer>
+          <CRow className="justify-content-center">
+            <CCol md="12" lg="8" xl="8">
+              <CCard className="mx-4">
+                <CCardBody className="p-4">
+                  <CForm onSubmit={formik.handleSubmit}>
+                    <h1>Add New ACP</h1>
+                    {formik.touched.name && formik.errors.name && (
+                      <div className="error">{formik.errors.name}</div>
+                    )}
+                    <CInputGroup className="mb-3">
+                      <CInputGroupPrepend>
+                        <CInputGroupText>
+                          <CIcon name="cil-user" />
+                        </CInputGroupText>
+                      </CInputGroupPrepend>
+                      <CInput
+                        className={
+                          formik.touched.name &&
+                          formik.errors.name &&
+                          "form-control-warning"
+                        }
+                        type="text"
+                        name="name"
+                        placeholder="Name"
+                        autoComplete="name"
+                        required
+                        {...formik.getFieldProps("name")}
+                      />
+                    </CInputGroup>
+                    {formik.touched.penNumber && formik.errors.penNumber && (
+                      <div className="error">{formik.errors.penNumber}</div>
+                    )}
+                    <CInputGroup className="mb-3">
+                      <CInputGroupPrepend>
+                        <CInputGroupText>
+                          <CIcon content={freeSet.cilFingerprint} />
+                        </CInputGroupText>
+                      </CInputGroupPrepend>
 
-                    <CInput
-                      className={
-                        formik.touched.penNumber &&
-                        formik.errors.penNumber &&
-                        "form-control-warning"
-                      }
-                      type="number"
-                      name="penNumber"
-                      placeholder="PEN Number"
-                      autoComplete="penNumber"
-                      required
-                      {...formik.getFieldProps("penNumber")}
-                    />
-                  </CInputGroup>
-                  {formik.touched.phoneNumber && formik.errors.phoneNumber && (
-                    <div className="error">{formik.errors.phoneNumber}</div>
-                  )}
-                  <CInputGroup className="mb-3">
-                    <CInputGroupPrepend>
-                      <CInputGroupText>
-                        <CIcon content={freeSet.cilPhone} />
-                      </CInputGroupText>
-                    </CInputGroupPrepend>
+                      <CInput
+                        className={
+                          formik.touched.penNumber &&
+                          formik.errors.penNumber &&
+                          "form-control-warning"
+                        }
+                        type="number"
+                        name="penNumber"
+                        placeholder="PEN Number"
+                        autoComplete="penNumber"
+                        required
+                        {...formik.getFieldProps("penNumber")}
+                      />
+                    </CInputGroup>
+                    {formik.touched.phoneNumber && formik.errors.phoneNumber && (
+                      <div className="error">{formik.errors.phoneNumber}</div>
+                    )}
+                    <CInputGroup className="mb-3">
+                      <CInputGroupPrepend>
+                        <CInputGroupText>
+                          <CIcon content={freeSet.cilPhone} />
+                        </CInputGroupText>
+                      </CInputGroupPrepend>
 
-                    <CInput
-                      className={
-                        formik.touched.phoneNumber &&
-                        formik.errors.phoneNumber &&
-                        "form-control-warning"
-                      }
-                      type="number"
-                      name="phoneNumber"
-                      placeholder="Phone Number"
-                      autoComplete="phoneNumber"
-                      required
-                      {...formik.getFieldProps("phoneNumber")}
-                    />
-                  </CInputGroup>
-                  {formik.touched.password && formik.errors.password && (
-                    <div className="error">{formik.errors.password}</div>
-                  )}
-                  <CInputGroup className="mb-3">
-                    <CInputGroupPrepend>
-                      <CInputGroupText>
-                        <CIcon name="cil-lock-locked" />
-                      </CInputGroupText>
-                    </CInputGroupPrepend>
-                    <CInput
-                      className={
-                        formik.touched.paswword &&
-                        formik.errors.paswword &&
-                        "form-control-warning"
-                      }
-                      type="password"
-                      name="password"
-                      placeholder="Password"
-                      required
-                      {...formik.getFieldProps("password")}
-                    />
-                  </CInputGroup>
-                  {formik.touched.email && formik.errors.email && (
-                    <div className="error">{formik.errors.email}</div>
-                  )}
-                  <CInputGroup className="mb-4">
-                    <CInputGroupPrepend>
-                      <CInputGroupText>@</CInputGroupText>
-                    </CInputGroupPrepend>
-                    <CInput
-                      className={
-                        formik.touched.email &&
-                        formik.errors.email &&
-                        "form-control-warning"
-                      }
-                      type="email"
-                      name="email"
-                      placeholder="email"
-                      {...formik.getFieldProps("email")}
-                    />
-                  </CInputGroup>
-                  <CInputGroup className="mb-4">
-                    <CInputGroupPrepend>
-                      <CInputGroupText>Select Subdivision</CInputGroupText>
-                    </CInputGroupPrepend>
-                    <CSelect
-                      custom
-                      name="subdivision"
-                      id="SelectLm"
-                      required
-                      {...formik.getFieldProps("subdivision")}
-                    >
-                      <option value="" disabled hidden>
-                        Select Subdivision
+                      <CInput
+                        className={
+                          formik.touched.phoneNumber &&
+                          formik.errors.phoneNumber &&
+                          "form-control-warning"
+                        }
+                        type="number"
+                        name="phoneNumber"
+                        placeholder="Phone Number"
+                        autoComplete="phoneNumber"
+                        required
+                        {...formik.getFieldProps("phoneNumber")}
+                      />
+                    </CInputGroup>
+                    {formik.touched.password && formik.errors.password && (
+                      <div className="error">{formik.errors.password}</div>
+                    )}
+                    <CInputGroup className="mb-3">
+                      <CInputGroupPrepend>
+                        <CInputGroupText>
+                          <CIcon name="cil-lock-locked" />
+                        </CInputGroupText>
+                      </CInputGroupPrepend>
+                      <CInput
+                        className={
+                          formik.touched.paswword &&
+                          formik.errors.paswword &&
+                          "form-control-warning"
+                        }
+                        type="password"
+                        name="password"
+                        placeholder="Password"
+                        required
+                        {...formik.getFieldProps("password")}
+                      />
+                    </CInputGroup>
+                    {formik.touched.email && formik.errors.email && (
+                      <div className="error">{formik.errors.email}</div>
+                    )}
+                    <CInputGroup className="mb-4">
+                      <CInputGroupPrepend>
+                        <CInputGroupText>@</CInputGroupText>
+                      </CInputGroupPrepend>
+                      <CInput
+                        className={
+                          formik.touched.email &&
+                          formik.errors.email &&
+                          "form-control-warning"
+                        }
+                        type="email"
+                        name="email"
+                        placeholder="email"
+                        {...formik.getFieldProps("email")}
+                      />
+                    </CInputGroup>
+                    <CInputGroup className="mb-4">
+                      <CInputGroupPrepend>
+                        <CInputGroupText>Select Subdivision</CInputGroupText>
+                      </CInputGroupPrepend>
+                      <CSelect
+                        custom
+                        name="subdivision"
+                        id="SelectLm"
+                        required
+                        {...formik.getFieldProps("subdivision")}
+                      >
+                        <option value="" disabled hidden>
+                          Select Subdivision
                       </option>
-                      {subdivisions.map((option) => (
-                        <option key={option._id} value={option._id}>
-                          {option.name}
-                        </option>
-                      ))}
-                    </CSelect>
-                  </CInputGroup>
-                  <CInputGroup className="mb-4">
-                    <CInputGroupPrepend>
-                      <CInputGroupText><span style={{ textDecoration: formik.values.subdivisionCharge ? "none" : "line-through" }}>Subdivision Charge</span></CInputGroupText>
-                    </CInputGroupPrepend>
-                    <CCol md="3">
+                        {subdivisions.map((option) => (
+                          <option key={option._id} value={option._id}>
+                            {option.name}
+                          </option>
+                        ))}
+                      </CSelect>
+                    </CInputGroup>
+                    <CInputGroup className="mb-4">
+                      <CInputGroupPrepend>
+                        <CInputGroupText><span style={{ textDecoration: formik.values.subdivisionCharge ? "none" : "line-through" }}>Subdivision Charge</span></CInputGroupText>
+                      </CInputGroupPrepend>
+                      <CCol md="3">
 
-                    </CCol>
-                    <CCol md="3">
-                      <CSwitch
-                        name="subdivisionCharge"
-                        className="mr-1"
-                        color="success"
-                        {...formik.getFieldProps("subdivisionCharge")}
-                        defaultChecked
-                        variant="opposite"
-                      />
-                    </CCol>
-                    <CCol md="3">
+                      </CCol>
+                      <CCol md="3">
+                        <CSwitch
+                          name="subdivisionCharge"
+                          className="mr-1"
+                          color="success"
+                          {...formik.getFieldProps("subdivisionCharge")}
+                          defaultChecked
+                          variant="opposite"
+                        />
+                      </CCol>
+                      <CCol md="3">
 
-                    </CCol>
+                      </CCol>
 
-                  </CInputGroup>
-                  <CInputGroup className="mb-4">
-                    <CInputGroupPrepend>
-                      <CInputGroupText>Duty Status</CInputGroupText>
-                    </CInputGroupPrepend>
-                    <CSelect
-                      disabled
-                      custom
-                      name="dutyStatu"
-                      id="SelectLm"
-                      {...formik.getFieldProps("dutyStatus")}
-                    >
-                      {dutyStatus.map((option) => (
-                        <option key={option.value} value={option.value}>
-                          {option.name}
-                        </option>
-                      ))}
-                    </CSelect>
-                  </CInputGroup>
-
-                  <div className="heading-center"> Available Lave Details</div>
-
-                  <CInputGroup>
-                    <CCol md="4">
-                      <CLabel>CL Available</CLabel>
-                      <CInput
-                        type="number"
-                        name="availableLeave.cl"
-                        placeholder="CL Available"
-                        {...formik.getFieldProps("availableLeave.cl")}
-                      />
-                    </CCol>
-                    <CCol md="4">
-                      <CLabel>C Off Available</CLabel>
-                      <CInput
+                    </CInputGroup>
+                    <CInputGroup className="mb-4">
+                      <CInputGroupPrepend>
+                        <CInputGroupText>Duty Status</CInputGroupText>
+                      </CInputGroupPrepend>
+                      <CSelect
                         disabled
-                        type="number"
-                        name="availableLeave.cOff"
-                        placeholder="C Off Available"
-                        {...formik.getFieldProps("availableLeave.cOff")}
+                        custom
+                        name="dutyStatu"
+                        id="SelectLm"
+                        {...formik.getFieldProps("dutyStatus")}
+                      >
+                        {dutyStatus.map((option) => (
+                          <option key={option.value} value={option.value}>
+                            {option.name}
+                          </option>
+                        ))}
+                      </CSelect>
+                    </CInputGroup>
+
+                    <div className="heading-center"> Available Lave Details</div>
+
+                    <CInputGroup>
+                      <CCol md="4">
+                        <CLabel>CL Available</CLabel>
+                        <CInput
+                          type="number"
+                          name="availableLeave.cl"
+                          placeholder="CL Available"
+                          {...formik.getFieldProps("availableLeave.cl")}
+                        />
+                      </CCol>
+                      <CCol md="4">
+                        <CLabel>C Off Available</CLabel>
+                        <CInput
+                          disabled
+                          type="number"
+                          name="availableLeave.cOff"
+                          placeholder="C Off Available"
+                          {...formik.getFieldProps("availableLeave.cOff")}
+                        />
+                      </CCol>
+                      <CCol md="4">
+                        <CLabel>Day Off Available</CLabel>
+                        <CInput
+                          disabled
+                          type="number"
+                          name="availableLeave.dayOff"
+                          placeholder="Day Off"
+                          {...formik.getFieldProps("availableLeave.dayOff")}
+                        />
+                      </CCol>
+                    </CInputGroup>
+                    <div className="sapce">
+                      <br></br>
+                    </div>
+                    {submitting ? (
+                      <Loader
+                        type="Puff"
+                        color="#321FDB"
+                        height={25}
+                        width={25}
+                        timeout={10000} //10 secs
                       />
-                    </CCol>
-                    <CCol md="4">
-                      <CLabel>Day Off Available</CLabel>
-                      <CInput
-                        disabled
-                        type="number"
-                        name="availableLeave.dayOff"
-                        placeholder="Day Off"
-                        {...formik.getFieldProps("availableLeave.dayOff")}
-                      />
-                    </CCol>
-                  </CInputGroup>
-                  <div className="sapce">
-                    <br></br>
-                  </div>
-                  {submitting ? (
-                    <Loader
-                      type="Puff"
-                      color="#321FDB"
-                      height={25}
-                      width={25}
-                      timeout={10000} //10 secs
-                    />
-                  ) : (
+                    ) : (
                       <CButton
                         className="x_btn"
                         type="submit"
@@ -356,13 +361,16 @@ const AddAc = ({ addUser }) => {
                         Add ACP
                       </CButton>
                     )}
-                </CForm>
-              </CCardBody>
-            </CCard>
-          </CCol>
-        </CRow>
-      </CContainer>
-    </div>
+                  </CForm>
+                </CCardBody>
+              </CCard>
+            </CCol>
+          </CRow>
+        </CContainer>
+      </div>
+
+    </Fragment>
+
   );
 };
 export default connect(null, { addUser })(AddAc);

@@ -51,20 +51,18 @@ const AddSho = ({ addUser }) => {
     const getPagedetails = async () => {
       try {
         let res = await action.get(`/admin/pageDetails/SHO`);
-        let stations = [];
-        if (res) {
-          res.data.stations.forEach((item) => {
-            stations.push({
-              name: item.name,
-              _id: item._id,
-              subdivision_id: item.subdivision._id,
-            });
-          });
-          setstate({
-            stations: stations,
-            subdivisions: [...res.data.subdivisions],
-          });
-          // console.log(state);
+        // let stations = [];
+        if (res.data) {
+          // res.data.stations.forEach((item) => {
+          //   stations.push({
+          //     value: item.value,
+          //     name: item.name,
+          //     _id: item._id,
+          //     subdivision_id: item.subdivision._id,
+          //   });
+          // });
+          // console.log(res.data);
+          setstate(res.data);
         }
       } catch (error) {
         console.log(error);
@@ -90,6 +88,7 @@ const AddSho = ({ addUser }) => {
     },
     dutyStatus: "active",
   };
+  console.log(state);
   const re = new RegExp(
     /^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i
   );
@@ -296,7 +295,7 @@ const AddSho = ({ addUser }) => {
                     >
                       {state.stations.map((option) => {
                         if (
-                          option.subdivision_id === formik.values.subdivision
+                          option.subdivision._id === formik.values.subdivision
                         ) {
                           return (
                             <option key={option._id} value={option._id}>
@@ -396,15 +395,15 @@ const AddSho = ({ addUser }) => {
                       timeout={10000} //10 secs
                     />
                   ) : (
-                      <CButton
-                        className="x_btn"
-                        type="submit"
-                        color="success"
-                        block
-                      >
-                        Add Inspector
-                      </CButton>
-                    )}
+                    <CButton
+                      className="x_btn"
+                      type="submit"
+                      color="success"
+                      block
+                    >
+                      Add Inspector
+                    </CButton>
+                  )}
                 </CForm>
               </CCardBody>
             </CCard>
