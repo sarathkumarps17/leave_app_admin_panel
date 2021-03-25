@@ -4,26 +4,26 @@ import { CWidgetBrand } from "@coreui/react";
 import CIcon from "@coreui/icons-react";
 import { freeSet } from '@coreui/icons';
 import ChartLineSimple from "../charts/ChartLineSimple";
+import ACLeave from "../leave/ACLeave";
 
 const StatusWidget = ({
   withCharts,
   color,
-  rightHeader,
+  leave,
   rightFooter,
-  leftHeader,
+  unavailable,
   leftFooter,
   iconName,
   datapoints,
 }) => {
   // render
-
   return withCharts ? (
     <CWidgetBrand
       color={color}
       className="widget"
-      rightHeader={rightHeader}
+      rightHeader={`ACP:${leave.AC} - IO:${leave.IO} - SI${leave.SI}`}
       rightFooter={rightFooter}
-      leftHeader={leftHeader}
+      leftHeader={`ACP:${unavailable.AC} - IO:${unavailable.IO} - SI:${unavailable.SI}`}
       leftFooter={leftFooter}
     >
       <CIcon name={iconName} height="10" className="my-4" />
@@ -36,17 +36,17 @@ const StatusWidget = ({
       />
     </CWidgetBrand>
   ) : (
-      <CWidgetBrand
-        className="widget"
-        color={color}
-        rightHeader={rightHeader}
-        rightFooter={rightFooter}
-        leftHeader={leftHeader}
-        leftFooter={leftFooter}
-      >
-        <CIcon content={freeSet[`${iconName}`]} height="25" className="my-4" />
-      </CWidgetBrand>
-    );
+    <CWidgetBrand
+      className="widget"
+      color={color}
+      rightFooter={`ACP:${leave.AC} - IO:${leave.IO} - SI${leave.SI}`}
+      rightHeader={rightFooter}
+      leftFooter={`ACP:${unavailable.AC} - IO:${unavailable.IO} - SI:${unavailable.SI}`}
+      leftHeader={leftFooter}
+    >
+      <CIcon content={freeSet[`${iconName}`]} height="25" className="my-2" />
+    </CWidgetBrand>
+  );
 };
 
 StatusWidget.propTypes = {

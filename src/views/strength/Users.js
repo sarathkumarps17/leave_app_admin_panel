@@ -1,5 +1,5 @@
 import React, { useEffect, Fragment } from "react";
-// import { useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import Loader from "react-loader-spinner";
 import { CCol, CDataTable, CRow, CButton, CBadge } from "@coreui/react";
 import { fetchUsers } from "../../redux/actions/user"
@@ -76,7 +76,7 @@ const officersFields = [
 ]
 
 const Users = ({ userType, users, loading, fetchUsers }) => {
-
+  const history = useHistory()
   useEffect(() => {
     fetchUsers(userType);
     return () => {
@@ -87,7 +87,7 @@ const Users = ({ userType, users, loading, fetchUsers }) => {
   let fields;
   switch (userType) {
     case 2:
-      designation = "Assistant Commisionrs"
+      designation = "Assistant commissioners"
       type = "AC"
       fields = acFields
       break;
@@ -117,55 +117,61 @@ const Users = ({ userType, users, loading, fetchUsers }) => {
           timeout={3000} //3 secs
         />
       ) : (
-          <Fragment>
-            <CRow>
-              <CCol xl={12}>
-                <CDataTable
-                  items={users[type]}
-                  fields={fields}
-                  hover
-                  sorter
-                  striped
-                  itemsPerPage={5}
-                  itemsPerPageSelect
-                  pagination
-                  columnFilter
-                  scopedSlots={{
+        <Fragment>
+          <CRow>
+            <CCol xl={12}>
+              <CDataTable
+                items={users[type]}
+                fields={fields}
+                hover
+                sorter
+                striped
+                itemsPerPage={5}
+                itemsPerPageSelect
+                pagination
+                columnFilter
+                scopedSlots={{
 
-                    show_details: (item, index) => {
-                      return (
-                        <td className="py-2" key={index}>
-                          <CButton size="sm" className="btn-square" color="primary" children="Show" />
-                        </td>
-                      );
-                    },
-                    subdivision: (item, index) => {
-                      return (
-                        <td className="py-2" key={index}>
-                          {item.subdivision.name}
-                        </td>
-                      );
-                    },
-                    station: (item, index) => {
-                      return (
-                        <td className="py-2" key={index}>
-                          {item.station.name}
-                        </td>
-                      );
-                    },
-                    station_charge: (item, index) => {
-                      return (
-                        <td className="py-2" key={index}>
-                          {item.stationCharge ? <CBadge children="SHO" color="warning" /> : "Nill"}
-                        </td>
-                      );
-                    },
-                  }}
-                />
-              </CCol>
-            </CRow>
-          </Fragment>
-        )}
+                  show_details: (item, index) => {
+                    return (
+                      <td className="py-2" key={index}>
+                        <CButton
+                          size="sm"
+                          className="btn-square"
+                          color="primary"
+                          children="Show"
+                          onClick={() => history.push(`${type}/${item._id}`)}
+                        />
+                      </td>
+                    );
+                  },
+                  subdivision: (item, index) => {
+                    return (
+                      <td className="py-2" key={index}>
+                        {item.subdivision.name}
+                      </td>
+                    );
+                  },
+                  station: (item, index) => {
+                    return (
+                      <td className="py-2" key={index}>
+                        {item.station.name}
+                      </td>
+                    );
+                  },
+                  station_charge: (item, index) => {
+                    return (
+                      <td className="py-2" key={index}>
+                        {item.stationCharge ? <CBadge children="SHO" color="warning" /> : "Nill"}
+                      </td>
+                    );
+                  },
+                }}
+              />
+            </CCol>
+          </CRow>
+        </Fragment>
+      )}
     </div>
   );
 };

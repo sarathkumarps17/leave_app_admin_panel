@@ -45,7 +45,7 @@ export const fetchUsers = (userType) => async (dispatch) => {
       setAuthToken(localStorage.token);
       let res = await action.get(`/admin/getUsers/${userType}`);
       if (res.data) {
-        console.log(res.data);
+        // console.log(res.data);
         let type
         switch (userType) {
           case 2:
@@ -73,9 +73,50 @@ export const fetchUsers = (userType) => async (dispatch) => {
         dispatch(setAlert("Failed Loading Users", "warning"));
       }
     } catch (err) {
+      console.log(err);
       dispatch({
         type: USERS_LOADING_FAILED,
       });
+      dispatch(setAlert("Server Error", "danger"));
+      // console.log(err.response.data.err);
+    }
+  }
+}
+
+export const deleteUser = (data) => async (dispatch) => {
+  // console.log(data)
+  let { password, id, user } = data;
+  let userType
+  switch (user) {
+    case "AC":
+      userType = 2;
+      break;
+    case "CI":
+      userType = 3;
+      break;
+    case "SI":
+      userType = 4;
+      break;
+    default:
+      break;
+  }
+  if (localStorage.token) {
+    try {
+      setAuthToken(localStorage.token);
+      let res;
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+      const body = JSON.stringify({ password, id });
+      res = await action.put("/admin/deleteUser", body, config);
+      if (res.status === 200) {
+        dispatch(fetchUsers(userType));
+        dispatch(setAlert("User Deleted", "sucess"));
+      }
+    } catch (err) {
+      console.log(err);
       dispatch(setAlert("Server Error", "danger"));
       // console.log(err.response.data.err);
     }

@@ -19,6 +19,17 @@ export default [
     ),
   },
   {
+    _tag: "CSidebarNavItem",
+    name: "Leave Stat",
+    to: "/leaveStat",
+    icon: (
+      <CIcon
+        content={freeSet.cilLibrary}
+        customClasses="c-sidebar-nav-icon"
+      />
+    ),
+  },
+  {
     _tag: "CSidebarNavDropdown",
     name: "Strength",
     icon: (
@@ -28,7 +39,7 @@ export default [
       {
         _tag: "CSidebarNavItem",
         name: "ACPs",
-        to: "/acp",
+        to: "/AC",
         icon: (
           <CIcon content={freeSet.cilLan} customClasses="c-sidebar-nav-icon" />
         ),
@@ -36,7 +47,7 @@ export default [
       {
         _tag: "CSidebarNavItem",
         name: "Inspector's",
-        to: "/sho",
+        to: "/CI",
         icon: (
           <CIcon content={freeSet.cilHome} customClasses="c-sidebar-nav-icon" />
         ),
@@ -44,7 +55,7 @@ export default [
       {
         _tag: "CSidebarNavItem",
         name: "Sub Inspector's",
-        to: "/si",
+        to: "/SI",
         icon: (
           <CIcon
             content={freeSet.cilShieldAlt}

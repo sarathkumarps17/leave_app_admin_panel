@@ -2,28 +2,29 @@ import React from "react";
 import { CWidgetDropdown } from "@coreui/react";
 // import CIcon from '@coreui/icons-react';
 import ChartLineSimple from "../charts/ChartLineSimple";
-import { useHistory } from "react-router-dom";
+// import { useHistory } from "react-router-dom";
 
-function DataWidget({ color, header, text, datapoints, customers }) {
-  let history = useHistory();
+function DataWidget({ color, data, text, datapoints, customers }) {
+  // let history = useHistory();
+  let { AC, IO, SI } = data
   return (
     <div>
       <div>
         <CWidgetDropdown
           style={{ cursor: "pointer" }}
-          onClick={() => history.push(`/${customers}`)}
+          // onClick={() => history.push(`/${customers}`)}
           color={color}
-          header={header}
-          text={text}
+          header={text}
+          text={`ACP :${AC} - IOP :${IO} - SI :${SI}`}
           className="widget"
           footerSlot={
-            <div className={"text-center"} style={{ height: "150px" }}>
+            <div className={"text-center"} style={{ height: "95px" }}>
               <ChartLineSimple
                 className="position-absolute w-100 h-50"
                 backgroundColor="rgba(255,255,255,.1)"
                 dataPoints={datapoints}
-                label="customers"
-                labels="months"
+                label="users"
+                labels="strength"
               />
             </div>
           }
